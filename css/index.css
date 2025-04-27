@@ -30,7 +30,7 @@ header {
     position: fixed;
     height: 5rem;
     z-index: 1000;
-    font-size: 18pt;
+    font-size: 16pt;
 }   
 .menu{
     display: flex;
@@ -65,6 +65,8 @@ footer{
     flex-direction: row;
     height: 100vh;
     width: 100%;
+    align-items: center;
+    justify-content: center;
 }
 .row2>div{
     width: 50%; 
@@ -86,4 +88,34 @@ main{
     background-repeat: no-repeat;
     background-size: cover;
     background-blend-mode:multiply ;
+    z-index: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.mensagem{
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ flex-direction: column;
+}
+.mensagem>a{
+    margin-top: 20px;
+    background-color: rgb(212, 212, 0);
+    border-radius: 100px;
+    color: black;
+    padding: 20px;
+    padding-right: 30px;
+    padding-left: 30px;
+    font-size: 14pt;
+}
+.mensagem>a:hover{
+    margin-top: 20px;
+    background-color: rgba(212, 212, 0, 0.644);
+    border-radius: 100px;
+    color: black;
+    padding: 20px;
+    padding-right: 30px;
+    padding-left: 30px;
+    font-size: 14pt;
 }
