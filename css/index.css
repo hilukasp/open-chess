@@ -41,10 +41,13 @@ header {
     padding-right: 20px;
 }
 a{
-    display: flex;
-    align-items: center;
+    
     text-decoration: none;
     color: aliceblue;
+}
+.menu>a,.logo>a{
+    display: flex;
+    align-items: center;
     height: 100%;
     padding: 0px 20px;
 }
@@ -68,11 +71,24 @@ footer{
     align-items: center;
     justify-content: center;
 }
-.row2>div{
+.row2>div, .row3>div{
     width: 50%; 
+}
+.row3{
+
+    background-color: rgb(190, 190, 190);
+    color: black;
+}
+.desc{
+    margin-left: 10px;
+    margin-right: 100px;
+}
+.desc2{
+    margin-right: 10px;
+    margin-left: 100px;
     
 }
-#myBoard{
+#myBoard,#myBoard2{
     margin: auto; 
 }
 main{

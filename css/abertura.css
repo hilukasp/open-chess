@@ -1,0 +1,32 @@
+.listaaberturas{ 
+    display: flex;
+    flex-flow: row wrap; 
+    height: 100%;  
+    position: relative;  
+    /* justify-content:space-between; */
+    gap: 30px;
+}
+.listaaberturas>div{
+    width: 300px;
+    position: relative;  
+}
+.abet{
+    margin:40px
+}
+.titulo{ 
+    display: flex; 
+     margin-bottom: 20px;
+}
+main{ 
+    margin-top: 5rem;
+}
+#myBoard2{ 
+    margin: 0px; 
+}
+.row{ 
+    display: flex;
+    flex-direction: column; 
+    height: 100%;
+    width: 100%;
+    
+} 
