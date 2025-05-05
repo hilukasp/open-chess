@@ -74,6 +74,7 @@
 
     function onDrop(source, target) {
       // see if the move is legal
+      removeGreySquares()
       var move = game.move({
         from: source,
         to: target,
@@ -87,6 +88,44 @@
       if (move === null) return 'snapback'
       
       updateStatus()
+      window.setTimeout(makeEnemyMove, 250)
+    }
+  
+
+    var enemyMoveIndex = 0;
+    vetorEnemy=[{
+        color:"b",
+        flags:"b",
+        from:"e7",
+        piece:"p",
+        san:"e5",
+        to: "e5"
+      },
+      {
+      "color": "b",
+      "from": "b8",
+      "to": "c6",
+      "flags": "n",
+      "piece": "n",
+      "san": "Nc6"
+      }
+      ]
+
+    function makeEnemyMove() { 
+   
+
+      if (enemyMoveIndex >= vetorEnemy.length) {
+        return
+      };
+
+      var move = game.move(vetorEnemy[enemyMoveIndex]);
+      if (move) {
+        console.log('a')
+        board.position(game.fen());
+        enemyMoveIndex++;
+        updateStatus();
+        greySquare()
+      }
     }
 
     // update the board position after the piece snap
@@ -141,7 +180,48 @@
 
     updateStatus()        
     
+    // 
+ 
+    var whiteSquareGrey = '#a9a9a9'
+    var blackSquareGrey = '#696969'
+
+    function removeGreySquares () {
+      $('#myBoard .square-55d63').css('background', '')
+    }
+
+    function greySquare () {
+      if (shadowIndex >= vetorShadow.length) {
+        return
+      };
+
+      var $square = $('#myBoard .square-' + vetorShadow[shadowIndex].from)
+      var $square2 = $('#myBoard .square-' + vetorShadow[shadowIndex].to)
+      shadowIndex++
+      var background = whiteSquareGrey
+      if ($square.hasClass('black-3c85d')) {
+        background = blackSquareGrey
+      }
+
+      $square.css('background', background)
+      $square2.css('background', background)
+    }
+      
+    var shadowIndex=0
+    var vetorShadow=[{
+      from:'e2',to:'e4' 
+    },
+    {
+      from:'g1', to:'f3'
+    }
+    ];
     
+      // highlight the square they moused over
+      greySquare()
+ 
+    
+ 
+ 
+ 
   </script>
 
 

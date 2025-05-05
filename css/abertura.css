@@ -16,10 +16,7 @@
 .titulo{ 
     display: flex; 
      margin-bottom: 20px;
-}
-main{ 
-    margin-top: 5rem;
-}
+} 
 #myBoard2{ 
     margin: 0px; 
 }

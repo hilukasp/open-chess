@@ -7,7 +7,7 @@ var carokann='rnbqkbnr/pp2pppp/2p5/3p4/3PP3/8/PPP2PPP/RNBQKBNR'
  
 
 var aberturas = [
-    { nome: 'Italiana', posicao: italiana,orientation:'white',link:'' },
+    { nome: 'Italiana', posicao: italiana,orientation:'white',link:'italiana.html' },
     { nome: 'Francesa', posicao: francesa,orientation:'black',link:'' },
     { nome: 'Ruy Lopez', posicao: ruyLopez,orientation:'white',link:'' },
     { nome: 'Caro-Kann', posicao: carokann,orientation:'black',link:'' },
@@ -20,7 +20,7 @@ var aberturas = [
 
 var board=[]
 for(i=0;i<aberturas.length;i++){ 
-    resultado.innerHTML+=`<div><a href="abertura.html"><div id="myOpen${i}" ></div><p>${aberturas[i].nome}<p></a></div>`
+    resultado.innerHTML+=`<div><a href="${aberturas[i].link}"><div id="myOpen${i}" ></div><p>${aberturas[i].nome}<p></a></div>`
 }
 
 for(i=0;i<aberturas.length;i++){
