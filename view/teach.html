@@ -17,7 +17,11 @@
   
 <button id="move1Btn">e2-e4</button>
 <button id="move2Btn">d2-d4, g8-f6</button> 
+<button onclick="undo()"><</button>
 <button id="startPositionBtn">Start Position</button>
+<div id="variantes">
+
+</div>
 
   <label>Status:</label>
   <div id="status"></div>
@@ -72,9 +76,17 @@
       updateStatus()
     })
 
-    function onDrop(source, target) {
-      // see if the move is legal
-      removeGreySquares()
+    function onDrop(source, target) { 
+
+      //o código verifica se a peça está sendo dropada na sombra
+      if(target != vetorShadow[shadowIndex-1].to){
+        // console.log(target, vetorShadow[shadowIndex-1].to)
+        return 'snapback'
+      }else{
+        removeGreySquares()
+        
+      }
+
       var move = game.move({
         from: source,
         to: target,
@@ -86,6 +98,7 @@
 
       // illegal move
       if (move === null) return 'snapback'
+      validate(enemyMoveIndex)
       
       updateStatus()
       window.setTimeout(makeEnemyMove, 250)
@@ -111,6 +124,18 @@
       }
       ]
 
+      var shadowIndex=0
+      var vetorShadow=[{
+        from:'e2',to:'e4' 
+      },
+      {
+        from:'g1', to:'f3'
+      },
+      {
+        from:'f1', to:'c4'
+      }
+      ];
+
     function makeEnemyMove() { 
    
 
@@ -119,8 +144,7 @@
       };
 
       var move = game.move(vetorEnemy[enemyMoveIndex]);
-      if (move) {
-        console.log('a')
+      if (move) { 
         board.position(game.fen());
         enemyMoveIndex++;
         updateStatus();
@@ -206,19 +230,41 @@
       $square2.css('background', background)
     }
       
-    var shadowIndex=0
-    var vetorShadow=[{
-      from:'e2',to:'e4' 
-    },
-    {
-      from:'g1', to:'f3'
+   
+    
+      
+    greySquare()
+    
+    //função responsável por ramificar as variantes
+    function validate(enemyMoveIndex) {
+      if (enemyMoveIndex===2) { 
+        variantes.innerHTML=`
+          <button onclick="varianteEnemy(chessmove=1)">Bc5</button>
+          <button onclick="varianteEnemy()">d6</button>
+          <button onclick="varianteEnemy()">Cf6</button>
+          `
+      }
     }
-    ];
     
-      // highlight the square they moused over
-      greySquare()
- 
-    
+    function varianteEnemy(chessMove) {
+      console.log(chessmove)
+      var vetortemporario=[]
+
+      if (chessMove==1) {
+        vetortemporario =
+        {
+        color:"b",
+        flags:"n",
+        from:"f8",
+        piece:"b",
+        san:"c5",
+        to: "c5"
+        }
+      }
+
+      vetorEnemy.push(vetortemporario)
+      makeEnemyMove()
+    } 
  
  
  
