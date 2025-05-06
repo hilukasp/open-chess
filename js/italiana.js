@@ -112,8 +112,13 @@ var config = {
   onSnapEnd: onSnapEnd
   
 }
+
+function refazer() {
+  game.undo(); // desfaz o movimento
+  board.position(game.fen()); // atualiza o tabuleiro com o novo FEN
+  updateStatus()        
+}
 board = Chessboard('myBoard', config)
 
 updateStatus()        
 
- 

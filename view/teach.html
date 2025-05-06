@@ -14,14 +14,14 @@
 
 <body>
   <div id="myBoard" style="width: 400px"></div>
-  
-<button id="move1Btn">e2-e4</button>
-<button id="move2Btn">d2-d4, g8-f6</button> 
-<button onclick="undo()"><</button>
-<button id="startPositionBtn">Start Position</button>
-<div id="variantes">
 
-</div>
+  <button id="move1Btn">e2-e4</button>
+  <button id="move2Btn">d2-d4, g8-f6</button>
+  <button onclick="undo()"> voltar </button>
+  <button id="startPositionBtn">Start Position</button>
+  <div id="variantes">
+
+  </div>
 
   <label>Status:</label>
   <div id="status"></div>
@@ -50,24 +50,24 @@
     }
 
     $('#move1Btn').on('click', function () {
-      
+
       board.move('e2-e4')
       var move = game.move({
-        
+
         //cor da peça
-        color:"w",
+        color: "w",
 
         //sempre b
-        flags:"b",
+        flags: "b",
 
         //posição inicial
-        from:"e2",
+        from: "e2",
 
         //nome da peça
-        piece:"p",
+        piece: "p",
 
         //notação pgn
-        san:"e4",
+        san: "e4",
 
         //posição final
         to: "e4"
@@ -76,15 +76,15 @@
       updateStatus()
     })
 
-    function onDrop(source, target) { 
+    function onDrop(source, target) {
 
       //o código verifica se a peça está sendo dropada na sombra
-      if(target != vetorShadow[shadowIndex-1].to){
+      if (target != vetorShadow[shadowIndex - 1].to) {
         // console.log(target, vetorShadow[shadowIndex-1].to)
         return 'snapback'
-      }else{
+      } else {
         removeGreySquares()
-        
+
       }
 
       var move = game.move({
@@ -94,57 +94,57 @@
       })
       console.log(move)
 
-      
+
 
       // illegal move
       if (move === null) return 'snapback'
       validate(enemyMoveIndex)
-      
+
       updateStatus()
       window.setTimeout(makeEnemyMove, 250)
     }
-  
+
 
     var enemyMoveIndex = 0;
-    vetorEnemy=[{
-        color:"b",
-        flags:"b",
-        from:"e7",
-        piece:"p",
-        san:"e5",
-        to: "e5"
-      },
-      {
+    vetorEnemy = [{
+      color: "b",
+      flags: "b",
+      from: "e7",
+      piece: "p",
+      san: "e5",
+      to: "e5"
+    },
+    {
       "color": "b",
       "from": "b8",
       "to": "c6",
       "flags": "n",
       "piece": "n",
       "san": "Nc6"
-      }
-      ]
+    }
+    ]
 
-      var shadowIndex=0
-      var vetorShadow=[{
-        from:'e2',to:'e4' 
-      },
-      {
-        from:'g1', to:'f3'
-      },
-      {
-        from:'f1', to:'c4'
-      }
-      ];
+    var shadowIndex = 0
+    var vetorShadow = [{
+      from: 'e2', to: 'e4'
+    },
+    {
+      from: 'g1', to: 'f3'
+    },
+    {
+      from: 'f1', to: 'c4'
+    }
+    ];
 
-    function makeEnemyMove() { 
-   
+    function makeEnemyMove() {
+
 
       if (enemyMoveIndex >= vetorEnemy.length) {
         return
       };
 
       var move = game.move(vetorEnemy[enemyMoveIndex]);
-      if (move) { 
+      if (move) {
         board.position(game.fen());
         enemyMoveIndex++;
         updateStatus();
@@ -155,7 +155,7 @@
     // update the board position after the piece snap
     // for castling, en passant, pawn promotion
     function onSnapEnd() {
-      
+
       board.position(game.fen())
     }
 
@@ -198,22 +198,22 @@
       onDragStart: onDragStart,
       onDrop: onDrop,
       onSnapEnd: onSnapEnd
-      
+
     }
     board = Chessboard('myBoard', config)
 
-    updateStatus()        
-    
+    updateStatus()
+
     // 
- 
+
     var whiteSquareGrey = '#a9a9a9'
     var blackSquareGrey = '#696969'
 
-    function removeGreySquares () {
+    function removeGreySquares() {
       $('#myBoard .square-55d63').css('background', '')
     }
 
-    function greySquare () {
+    function greySquare() {
       if (shadowIndex >= vetorShadow.length) {
         return
       };
@@ -225,49 +225,86 @@
       if ($square.hasClass('black-3c85d')) {
         background = blackSquareGrey
       }
+      var background2 = whiteSquareGrey
+      if ($square2.hasClass('black-3c85d')) {
+        background2 = blackSquareGrey
+      }
 
       $square.css('background', background)
-      $square2.css('background', background)
+      $square2.css('background', background2)
     }
-      
-   
-    
-      
+
+
+
+
     greySquare()
-    
+
     //função responsável por ramificar as variantes
     function validate(enemyMoveIndex) {
-      if (enemyMoveIndex===2) { 
-        variantes.innerHTML=`
+      if (enemyMoveIndex === 2) {
+        variantes.innerHTML = `
           <button onclick="varianteEnemy(chessmove=1)">Bc5</button>
-          <button onclick="varianteEnemy()">d6</button>
-          <button onclick="varianteEnemy()">Cf6</button>
+          <button onclick="varianteEnemy(chessmove=2)">d6</button>
+          <button onclick="varianteEnemy(chessmove=3)">Cf6</button>
           `
       }
     }
-    
+
     function varianteEnemy(chessMove) {
       console.log(chessmove)
-      var vetortemporario=[]
+      var vetortemporario = []
 
-      if (chessMove==1) {
+      if (chessMove == 1) {
         vetortemporario =
         {
-        color:"b",
-        flags:"n",
-        from:"f8",
-        piece:"b",
-        san:"c5",
-        to: "c5"
+          color: "b",
+          flags: "n",
+          from: "f8",
+          piece: "b",
+          san: "c5",
+          to: "c5"
         }
+
+        vetorEnemy.push(vetortemporario)
+        makeEnemyMove()
+        vetortemporario=
+        {
+          from:"c2",to:"c3"
+        }
+        vetorShadow.push(vetortemporario)
+        greySquare()
+      }
+      if (chessMove == 2) {
+        vetortemporario = {
+          "color": "b",
+          "from": "d7",
+          "to": "d6",
+          "flags": "n",
+          "piece": "p",
+          "san": "d6"
+        }
+
+        vetorEnemy.push(vetortemporario)
+        makeEnemyMove()
+      }
+      if (chessMove == 3) {
+        vetortemporario = {
+          "color": "b",
+          "from": "g8",
+          "to": "f6",
+          "flags": "n",
+          "piece": "n",
+          "san": "Nf6"
+        }
+
+        vetorEnemy.push(vetortemporario)
+        makeEnemyMove()
       }
 
-      vetorEnemy.push(vetortemporario)
-      makeEnemyMove()
-    } 
- 
- 
- 
+    }
+
+
+//https://www.youtube.com/watch?v=9Q2oa73y5PU
   </script>
 
 
