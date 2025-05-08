@@ -242,6 +242,7 @@
     //função responsável por ramificar as variantes
     function validate(enemyMoveIndex) {
       variantes.innerHTML = ``
+      var vetortemporario = []
 
       console.log('movimento do inimigo: ' + enemyMoveIndex)
       if (enemyMoveIndex === 2) {
@@ -265,9 +266,10 @@
       }
     }
 
+
     function varianteEnemy(chessMove) {
       console.log(chessmove)
-      var vetortemporario = []
+      
 
       if (chessMove == 1) {
         vetortemporario =
@@ -389,7 +391,7 @@
 
       }
       if (chessMove == 7) {
-        vetortemporario = {
+        vetortemporario = [{
           "color": "b",
           "from": "e5",
           "to": "d4",
@@ -397,16 +399,48 @@
           "piece": "p",
           "captured": "p",
           "san": "exd4"
-        }
+        },
+        {
+          "color": "b",
+          "from": "c5",
+          "to": "b4",
+          "flags": "n",
+          "piece": "b",
+          "san": "Bb4+"
+        },
+        {
+          "color": "b",
+          "from": "b4",
+          "to": "c3",
+          "flags": "c",
+          "piece": "b",
+          "captured": "n",
+          "san": "Bxc3+"
+        },
+        {
+          "color": "b",
+          "from": "g8",
+          "to": "f6",
+          "flags": "n",
+          "piece": "n",
+          "san": "Nf6"
+        }]
 
-        vetorEnemy.push(vetortemporario)
+        vetortemporario.forEach(mov => vetorEnemy.push(mov))
         makeEnemyMove()
 
-        vetortemporario =
+        vetortemporario =[
         {
           from: "c3", to: "d4"
-        }
-        vetorShadow.push(vetortemporario)
+        },
+        {
+          from: "b1", to: "c3"
+        },
+        {
+          from: "b2", to: "c3"
+        },
+        ]
+          vetortemporario.forEach(shadow => vetorShadow.push(shadow))
         greySquare()
       }
     }
@@ -429,7 +463,7 @@
       game.reset()
       board.position('start');
       removeGreySquares();
-       enemyMoveIndex = 0;
+      enemyMoveIndex = 0;
       vetorEnemy = [{
         color: "b",
         flags: "b",
@@ -448,8 +482,8 @@
       }
       ]
 
-       shadowIndex = 0
-       vetorShadow = [{
+      shadowIndex = 0
+      vetorShadow = [{
         from: 'e2', to: 'e4'
       },
       {
