@@ -17,8 +17,8 @@
 
   <button id="move1Btn">e2-e4</button>
   <button id="move2Btn">d2-d4, g8-f6</button>
-  <button onclick="undo()"> voltar </button>
-  <button id="startPositionBtn">Start Position</button>
+  <button onclick="refazer()"> voltar </button>
+  <button id="startPositionBtn" onclick="resetar()">Start Position</button>
   <div id="variantes">
 
   </div>
@@ -79,7 +79,7 @@
     function onDrop(source, target) {
 
       //o código verifica se a peça está sendo dropada na sombra
-      if (target != vetorShadow[shadowIndex - 1].to) {
+      if (target != vetorShadow[shadowIndex - 1].to || source != vetorShadow[shadowIndex - 1].from) {
         // console.log(target, vetorShadow[shadowIndex-1].to)
         return 'snapback'
       } else {
@@ -241,11 +241,26 @@
 
     //função responsável por ramificar as variantes
     function validate(enemyMoveIndex) {
+      variantes.innerHTML = ``
+
+      console.log('movimento do inimigo: ' + enemyMoveIndex)
       if (enemyMoveIndex === 2) {
         variantes.innerHTML = `
           <button onclick="varianteEnemy(chessmove=1)">Bc5</button>
           <button onclick="varianteEnemy(chessmove=2)">d6</button>
           <button onclick="varianteEnemy(chessmove=3)">Cf6</button>
+          `
+      }
+      if (enemyMoveIndex === 3) {
+        variantes.innerHTML = `
+          <button onclick="varianteEnemy(chessmove=4)">d6</button>
+          <button onclick="varianteEnemy(chessmove=5)">Cf6</button> 
+          `
+      }
+      if (enemyMoveIndex === 4) {
+        variantes.innerHTML = `
+          <button onclick="varianteEnemy(chessmove=6)">Bb6</button>
+          <button onclick="varianteEnemy(chessmove=7)">exd4</button> 
           `
       }
     }
@@ -267,9 +282,9 @@
 
         vetorEnemy.push(vetortemporario)
         makeEnemyMove()
-        vetortemporario=
+        vetortemporario =
         {
-          from:"c2",to:"c3"
+          from: "c2", to: "c3"
         }
         vetorShadow.push(vetortemporario)
         greySquare()
@@ -301,10 +316,155 @@
         makeEnemyMove()
       }
 
+      if (chessMove == 4) {
+        vetortemporario = {
+          "color": "b",
+          "from": "d7",
+          "to": "d6",
+          "flags": "n",
+          "piece": "p",
+          "san": "d6"
+        }
+        vetorEnemy.push(vetortemporario)
+        makeEnemyMove()
+        vetortemporario =
+        {
+          from: "d2", to: "d4"
+        }
+        vetorShadow.push(vetortemporario)
+        greySquare()
+
+      }
+
+      if (chessMove == 5) {
+        vetortemporario = {
+          "color": "b",
+          "from": "g8",
+          "to": "f6",
+          "flags": "n",
+          "piece": "n",
+          "san": "Nf6"
+        }
+      }
+      if (chessMove == 6) {
+        vetortemporario = [{
+          "color": "b",
+          "from": "c5",
+          "to": "b6",
+          "flags": "n",
+          "piece": "b",
+          "san": "Bb6"
+        },
+        {
+          "color": "b",
+          "from": "d6",
+          "to": "e5",
+          "flags": "c",
+          "piece": "p",
+          "captured": "p",
+          "san": "dxe5"
+        },
+        {
+          "color": "b",
+          "from": "e8",
+          "to": "d8",
+          "flags": "c",
+          "piece": "k",
+          "captured": "q",
+          "san": "Kxd8"
+        }]
+
+        vetortemporario.forEach(mov => vetorEnemy.push(mov))
+        makeEnemyMove()
+
+        vetortemporario =
+          [{
+            from: "d4", to: "e5"
+          },
+          {
+            from: "d1", to: "d8"
+          }]
+        vetortemporario.forEach(shadow => vetorShadow.push(shadow))
+        greySquare()
+
+      }
+      if (chessMove == 7) {
+        vetortemporario = {
+          "color": "b",
+          "from": "e5",
+          "to": "d4",
+          "flags": "c",
+          "piece": "p",
+          "captured": "p",
+          "san": "exd4"
+        }
+
+        vetorEnemy.push(vetortemporario)
+        makeEnemyMove()
+
+        vetortemporario =
+        {
+          from: "c3", to: "d4"
+        }
+        vetorShadow.push(vetortemporario)
+        greySquare()
+      }
     }
 
+    // function refazer() {
+    //   enemyMoveIndex--
+    //   shadowIndex--
+    //   shadowIndex--
+    //   removeGreySquares()
 
-//https://www.youtube.com/watch?v=9Q2oa73y5PU
+    //   game.undo(); // desfaz o movimento
+    //   game.undo(); // desfaz o movimento
+
+    //   greySquare()
+    //   board.position(game.fen()); // atualiza o tabuleiro com o novo FEN
+    //   updateStatus()
+    // }
+
+    function resetar() {
+      game.reset()
+      board.position('start');
+      removeGreySquares();
+       enemyMoveIndex = 0;
+      vetorEnemy = [{
+        color: "b",
+        flags: "b",
+        from: "e7",
+        piece: "p",
+        san: "e5",
+        to: "e5"
+      },
+      {
+        "color": "b",
+        "from": "b8",
+        "to": "c6",
+        "flags": "n",
+        "piece": "n",
+        "san": "Nc6"
+      }
+      ]
+
+       shadowIndex = 0
+       vetorShadow = [{
+        from: 'e2', to: 'e4'
+      },
+      {
+        from: 'g1', to: 'f3'
+      },
+      {
+        from: 'f1', to: 'c4'
+      }
+      ];
+      greySquare()
+      updateStatus()
+
+    }
+
+    //https://www.youtube.com/watch?v=9Q2oa73y5PU
   </script>
 
 
