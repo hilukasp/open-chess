@@ -247,36 +247,42 @@
       console.log('movimento do inimigo: ' + enemyMoveIndex)
       if (enemyMoveIndex === 2) {
         variantes.innerHTML = `
-          <button onclick="varianteEnemy(chessmove=1)">Bc5</button>
-          <button onclick="varianteEnemy(chessmove=2)">d6</button>
-          <button onclick="varianteEnemy(chessmove=3)">Cf6</button>
-          `
+        <button onclick="varianteEnemy(chessmove=1)">Bc5</button>
+        <button onclick="varianteEnemy(chessmove=2)">d6</button>
+        <button onclick="varianteEnemy(chessmove=3)">Cf6</button>
+        `
       }
-      
-      if (enemyMoveIndex === 3&&variante==1) {
-        variantes.innerHTML = `
-          <button onclick="varianteEnemy(chessmove=4)">d6</button>
-          <button onclick="varianteEnemy(chessmove=5)">Cf6</button> 
-          `
-      }
-      if (enemyMoveIndex === 3&&variante==2) {
-        variantes.innerHTML = `
-          <button onclick="varianteEnemy(chessmove=8)">bg4</button>
-          <button onclick="varianteEnemy(chessmove=9)">Cf6</button> 
-          `
-      }
+
       if (enemyMoveIndex === 4) {
         variantes.innerHTML = `
           <button onclick="varianteEnemy(chessmove=6)">Bb6</button>
           <button onclick="varianteEnemy(chessmove=7)">exd4</button> 
           `
       }
+      if (enemyMoveIndex === 3 && variante == 1) {
+        variantes.innerHTML = `
+          <button onclick="varianteEnemy(chessmove=4)">d6</button>
+          <button onclick="varianteEnemy(chessmove=5)">Cf6</button> 
+          `
+      }
+      if (enemyMoveIndex === 3 && variante == 2) {
+        variantes.innerHTML = `
+          <button onclick="varianteEnemy(chessmove=8)">Bg4</button>
+          <button onclick="varianteEnemy(chessmove=9)">Cf6</button> 
+          `
+      }
+      if (enemyMoveIndex === 4 && variante == 3) {
+        variantes.innerHTML = `
+          <button onclick="varianteEnemy(chessmove=10)">Bxf3</button>
+          <button onclick="varianteEnemy(chessmove=11)">Qd7</button> 
+          `
+      }
     }
 
-    var variante=0
+    var variante = 0
     function varianteEnemy(chessMove) {
       console.log(chessmove)
-      
+
 
       if (chessMove == 1) {
         vetortemporario =
@@ -291,7 +297,7 @@
 
         vetorEnemy.push(vetortemporario)
         makeEnemyMove()
-        variante=1
+        variante = 1
         vetortemporario =
         {
           from: "c2", to: "c3"
@@ -307,7 +313,7 @@
           "flags": "n",
           "piece": "p",
           "san": "d6"
-        } 
+        }
 
         vetorEnemy.push(vetortemporario)
         makeEnemyMove()
@@ -317,7 +323,7 @@
         }
         vetorShadow.push(vetortemporario)
         greySquare()
-        variante=2
+        variante = 2
       }
       if (chessMove == 3) {
         vetortemporario = {
@@ -508,30 +514,58 @@
         vetortemporario.forEach(shadow => vetorShadow.push(shadow))
         greySquare()
       }
-      if (chessMove=8) {
-        vetortemporario=[
-        {
+      if (chessMove == 8) {
+        vetortemporario = {
           "color": "b",
           "from": "c8",
           "to": "g4",
           "flags": "n",
           "piece": "b",
           "san": "Bg4"
-      },
-      {
+        }
 
+        vetorEnemy.push(vetortemporario)
+        makeEnemyMove()
+        vetortemporario =
+        {
+          from: "d1", to: "b3"
+        }
+        vetorShadow.push(vetortemporario)
+        greySquare()
+        variante = 3
       }
+      if (chessMove == 10) {
+        vetortemporario = [
+          {
+            "color": "b",
+            "from": "g4",
+            "to": "f3",
+            "flags": "c",
+            "piece": "b",
+            "captured": "n",
+            "san": "Bxf3"
+          },
+          {
+            "color": "b",
+            "from": "e8",
+            "to": "e7",
+            "flags": "n",
+            "piece": "k",
+            "san": "Ke7"
+          }
         ]
-        vetortemporario.forEach(mov=>vetorEnemy.push(mov))
+        vetortemporario.forEach(mov => vetorEnemy.push(mov))
         makeEnemyMove()
 
-        vetortemporario[
+        vetortemporario = [
           {
-            from:d1,to:b3
+            from: "c4", to: "f7"
+          },
+          {
+            from: "b3", to: "e6"
           }
-
         ]
-        vetortemporario.forEach(shadow=>vetorShadow.push(shador))
+        vetortemporario.forEach(shadow => vetorShadow.push(shadow))
         greySquare()
       }
     }
