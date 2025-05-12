@@ -283,6 +283,12 @@
           <button onclick="varianteEnemy(chessmove=13)">Bh5</button> 
           `
       }
+      if (enemyMoveIndex === 3 && variante == 4) {
+        variantes.innerHTML = `
+          <button onclick="varianteEnemy(chessmove=12)">Bxf3</button>
+          <button onclick="varianteEnemy(chessmove=13)">Bh5</button> 
+          `
+      }
     }
 
     var variante = 0
@@ -332,6 +338,7 @@
         variante = 2
       }
       if (chessMove == 3) {
+      variante=4
         vetortemporario = {
           "color": "b",
           "from": "g8",
@@ -343,6 +350,14 @@
 
         vetorEnemy.push(vetortemporario)
         makeEnemyMove()
+
+        vetortemporario = [
+          {
+            from: "d2", to: "d3"
+          } 
+        ]
+        vetortemporario.forEach(shadow => vetorShadow.push(shadow))
+        greySquare()
       }
 
       if (chessMove == 4) {
