@@ -18,6 +18,7 @@
   <button id="move1Btn">e2-e4</button>
   <button id="move2Btn">d2-d4, g8-f6</button>
   <button onclick="refazer()"> voltar </button>
+  <button onclick="clicar()">começar</button>
   <button id="startPositionBtn" onclick="resetar()">Start Position</button>
   <div id="variantes">
 
@@ -102,6 +103,7 @@
 
       updateStatus()
       window.setTimeout(makeEnemyMove, 250)
+
     }
 
 
@@ -137,6 +139,7 @@
     ];
 
     function makeEnemyMove() {
+
 
 
       if (enemyMoveIndex >= vetorEnemy.length) {
@@ -193,15 +196,24 @@
     }
 
     var config = {
-      draggable: true,
       position: 'start',
-      onDragStart: onDragStart,
-      onDrop: onDrop,
-      onSnapEnd: onSnapEnd
 
     }
-    board = Chessboard('myBoard', config)
+    function clicar() {
+      var config = {
+        draggable: true,
+        position: 'start',
+        onDragStart: onDragStart,
+        onDrop: onDrop,
+        onSnapEnd: onSnapEnd
+        
+      }
+      
+      board = Chessboard('myBoard', config)
+      greySquare()
+    }
 
+    board = Chessboard('myBoard',config)
     updateStatus()
 
     // 
@@ -237,7 +249,6 @@
 
 
 
-    greySquare()
 
     //função responsável por ramificar as variantes
     function validate(enemyMoveIndex) {
@@ -309,6 +320,7 @@
 
 
       if (chessMove == 1) {
+        variantes.innerHTML = ``
         vetortemporario =
         {
           color: "b",
@@ -317,6 +329,7 @@
           piece: "b",
           san: "c5",
           to: "c5"
+          // "mensagem": "O rei preto se move para e7 em um lance cauteloso."
         }
 
         vetorEnemy.push(vetortemporario)
@@ -330,6 +343,7 @@
         greySquare()
       }
       if (chessMove == 2) {
+        variantes.innerHTML = ``
         vetortemporario = {
           "color": "b",
           "from": "d7",
@@ -350,6 +364,7 @@
         variante = 2
       }
       if (chessMove == 3) {
+        variantes.innerHTML = ``
         variante = 4
         vetortemporario = {
           "color": "b",
@@ -373,6 +388,7 @@
       }
 
       if (chessMove == 4) {
+        variantes.innerHTML = ``
         vetortemporario = {
           "color": "b",
           "from": "d7",
@@ -393,15 +409,16 @@
       }
 
       if (chessMove == 5) {
+        variantes.innerHTML = ``
         vetortemporario = [
           {
-    "color": "b",
-    "from": "g8",
-    "to": "f6",
-    "flags": "n",
-    "piece": "n",
-    "san": "Nf6"
-},
+            "color": "b",
+            "from": "g8",
+            "to": "f6",
+            "flags": "n",
+            "piece": "n",
+            "san": "Nf6"
+          },
           {
             "color": "b",
             "from": "e8",
@@ -426,6 +443,7 @@
         greySquare()
       }
       if (chessMove == 6) {
+        variantes.innerHTML = ``
         vetortemporario = [{
           "color": "b",
           "from": "c5",
@@ -468,6 +486,7 @@
 
       }
       if (chessMove == 7) {
+        variantes.innerHTML = ``
         vetortemporario = [{
           "color": "b",
           "from": "e5",
@@ -571,6 +590,7 @@
         greySquare()
       }
       if (chessMove == 8) {
+        variantes.innerHTML = ``
         vetortemporario = {
           "color": "b",
           "from": "c8",
@@ -591,6 +611,7 @@
         variante = 3
       }
       if (chessMove == 10) {
+        variantes.innerHTML = ``
         vetortemporario = [
           {
             "color": "b",
@@ -626,6 +647,7 @@
       }
 
       if (chessMove == 11) {
+        variantes.innerHTML = ``
         vetortemporario = [
           {
             "color": "b",
@@ -671,6 +693,7 @@
         greySquare()
       }
       if (chessMove == 9) {
+        variantes.innerHTML = ``
         vetortemporario = [
           {
             "color": "b",
@@ -738,6 +761,7 @@
         greySquare()
       }
       if (chessMove == 12) {
+        variantes.innerHTML = ``
         vetortemporario = [
           {
             "color": "b",
@@ -765,7 +789,7 @@
             "captured": "p",
             "san": "exd4"
           },
-          
+
         ]
         vetortemporario.forEach(mov => vetorEnemy.push(mov))
         makeEnemyMove()
@@ -785,6 +809,7 @@
         greySquare()
       }
       if (chessMove == 13) {
+        variantes.innerHTML = ``
         variante = 0
         vetortemporario = [
           {
@@ -842,48 +867,49 @@
         vetortemporario.forEach(shadow => vetorShadow.push(shadow))
         greySquare()
       }
-      if (chessMove==14){
-         vetortemporario = [
+      if (chessMove == 14) {
+        variantes.innerHTML = ``
+        vetortemporario = [
           {
-    "color": "b",
-    "from": "f8",
-    "to": "c5",
-    "flags": "n",
-    "piece": "b",
-    "san": "Bc5"
-},
+            "color": "b",
+            "from": "f8",
+            "to": "c5",
+            "flags": "n",
+            "piece": "b",
+            "san": "Bc5"
+          },
           {
-    "color": "b",
-    "from": "e8",
-    "to": "g8",
-    "flags": "k",
-    "piece": "k",
-    "san": "O-O"
-},
-{
-    "color": "b",
-    "from": "d7",
-    "to": "d6",
-    "flags": "n",
-    "piece": "p",
-    "san": "d6"
-},
-{
-    "color": "b",
-    "from": "c8",
-    "to": "g4",
-    "flags": "n",
-    "piece": "b",
-    "san": "Bg4"
-},
-{
-    "color": "b",
-    "from": "f8",
-    "to": "e8",
-    "flags": "n",
-    "piece": "r",
-    "san": "Re8"
-}
+            "color": "b",
+            "from": "e8",
+            "to": "g8",
+            "flags": "k",
+            "piece": "k",
+            "san": "O-O"
+          },
+          {
+            "color": "b",
+            "from": "d7",
+            "to": "d6",
+            "flags": "n",
+            "piece": "p",
+            "san": "d6"
+          },
+          {
+            "color": "b",
+            "from": "c8",
+            "to": "g4",
+            "flags": "n",
+            "piece": "b",
+            "san": "Bg4"
+          },
+          {
+            "color": "b",
+            "from": "f8",
+            "to": "e8",
+            "flags": "n",
+            "piece": "r",
+            "san": "Re8"
+          }
         ]
         vetortemporario.forEach(mov => vetorEnemy.push(mov))
         makeEnemyMove()
@@ -909,16 +935,17 @@
         greySquare()
       }
       if (chessMove == 15) {
-        variante=5
+        variantes.innerHTML = ``
+        variante = 5
         vetortemporario = [
           {
-    "color": "b",
-    "from": "d7",
-    "to": "d6",
-    "flags": "n",
-    "piece": "p",
-    "san": "d6"
-},
+            "color": "b",
+            "from": "d7",
+            "to": "d6",
+            "flags": "n",
+            "piece": "p",
+            "san": "d6"
+          },
 
         ]
         vetortemporario.forEach(mov => vetorEnemy.push(mov))
@@ -932,25 +959,26 @@
         vetortemporario.forEach(shadow => vetorShadow.push(shadow))
         greySquare()
       }
-     if (chessMove == 16) {
+      if (chessMove == 16) {
+        variantes.innerHTML = ``
         vetortemporario = [
-         {
-    "color": "b",
-    "from": "c8",
-    "to": "e6",
-    "flags": "n",
-    "piece": "b",
-    "san": "Be6"
-},
-{
-    "color": "b",
-    "from": "f7",
-    "to": "e6",
-    "flags": "c",
-    "piece": "p",
-    "captured": "n",
-    "san": "fxe6"
-}
+          {
+            "color": "b",
+            "from": "c8",
+            "to": "e6",
+            "flags": "n",
+            "piece": "b",
+            "san": "Be6"
+          },
+          {
+            "color": "b",
+            "from": "f7",
+            "to": "e6",
+            "flags": "c",
+            "piece": "p",
+            "captured": "n",
+            "san": "fxe6"
+          }
 
         ]
         vetortemporario.forEach(mov => vetorEnemy.push(mov))
@@ -967,24 +995,25 @@
         vetortemporario.forEach(shadow => vetorShadow.push(shadow))
         greySquare()
       }
-           if (chessMove == 17) {
+      if (chessMove == 17) {
+        variantes.innerHTML = ``
         vetortemporario = [
-         {
-    "color": "b",
-    "from": "a7",
-    "to": "a6",
-    "flags": "n",
-    "piece": "p",
-    "san": "a6"
-},
-{
-    "color": "b",
-    "from": "d8",
-    "to": "d7",
-    "flags": "n",
-    "piece": "q",
-    "san": "Qd7"
-}
+          {
+            "color": "b",
+            "from": "a7",
+            "to": "a6",
+            "flags": "n",
+            "piece": "p",
+            "san": "a6"
+          },
+          {
+            "color": "b",
+            "from": "d8",
+            "to": "d7",
+            "flags": "n",
+            "piece": "q",
+            "san": "Qd7"
+          }
 
         ]
         vetortemporario.forEach(mov => vetorEnemy.push(mov))

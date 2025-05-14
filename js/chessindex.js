@@ -36,5 +36,5 @@ makeRandomMove();
 var board2 = null
 var game2 = new Chess() 
 
-var ruyLopez = 'r1bqkbnr/pppp1ppp/2n5/4p3/2B1P3/5N2/PPPP1PPP/RNBQK2R'
-var board2   = Chessboard('myBoard2', ruyLopez)
+var italiana = 'r1bqkbnr/pppp1ppp/2n5/4p3/2B1P3/5N2/PPPP1PPP/RNBQK2R'
+var board2   = Chessboard('myBoard2', italiana)

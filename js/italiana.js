@@ -75,9 +75,17 @@ function updateStatus() {
   var status = ''
 
   var moveColor = 'White'
+  vez.style.color='black';
+    vez.style.backgroundColor='white';
+    vez.innerHTML='<h1>Vez das brancas</h1>' 
+
   if (game.turn() === 'b') {
+    vez.style.color='white';
+    vez.style.backgroundColor='black';
+    vez.innerHTML='<h1>Vez das pretas</h1>'
     moveColor = 'Black'
   }
+
 
   // checkmate?
   if (game.in_checkmate()) {
