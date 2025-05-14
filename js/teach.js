@@ -132,6 +132,18 @@ function updateStatus() {
     var status = ''
 
     var moveColor = 'White'
+    vez.style.color = 'black';
+    vez.style.backgroundColor = 'white';
+    vez.innerHTML = '<h1>Vez das brancas</h1>'
+
+    if (game.turn() === 'b') {
+        vez.style.color = 'white';
+        vez.style.backgroundColor = 'black';
+        vez.innerHTML = '<h1>Vez das pretas</h1>'
+        moveColor = 'Black'
+    }
+
+    var moveColor = 'White'
     if (game.turn() === 'b') {
         moveColor = 'Black'
     }
@@ -162,15 +174,26 @@ function updateStatus() {
 }
 
 var config = {
-    draggable: true,
     position: 'start',
-    onDragStart: onDragStart,
-    onDrop: onDrop,
-    onSnapEnd: onSnapEnd
 
 }
-board = Chessboard('myBoard', config)
+function clicar() {
+    var config = {
+        draggable: true,
+        position: 'start',
+        onDragStart: onDragStart,
+        onDrop: onDrop,
+        onSnapEnd: onSnapEnd
 
+    }
+
+    board = Chessboard('myBoard', config)
+    greySquare()
+    opcoes.innerHTML=`<button onclick="resetar()">Recomeçar</button>`
+    variantes.innerHTML=``
+}
+
+board = Chessboard('myBoard', config)
 updateStatus()
 
 // 
@@ -206,7 +229,6 @@ function greySquare() {
 
 
 
-greySquare()
 
 //função responsável por ramificar as variantes
 function validate(enemyMoveIndex) {
@@ -215,7 +237,7 @@ function validate(enemyMoveIndex) {
 
     console.log('movimento do inimigo: ' + enemyMoveIndex)
     if (enemyMoveIndex === 2) {
-        variantes.innerHTML = `
+        variantes.innerHTML = `<h2> Lances do inimigo: </h2>
         <button onclick="varianteEnemy(chessmove=1)">Bc5</button>
         <button onclick="varianteEnemy(chessmove=2)">d6</button>
         <button onclick="varianteEnemy(chessmove=3)">Cf6</button>
@@ -223,53 +245,57 @@ function validate(enemyMoveIndex) {
     }
 
     if (enemyMoveIndex === 4 && variante == 1) {
-        variantes.innerHTML = `
+        variantes.innerHTML = `<h2> Lances do inimigo: </h2>
           <button onclick="varianteEnemy(chessmove=6)">Bb6</button>
           <button onclick="varianteEnemy(chessmove=7)">exd4</button> 
           `
     }
     if (enemyMoveIndex === 3 && variante == 1) {
-        variantes.innerHTML = `
+        variantes.innerHTML = `<h2> Lances do inimigo: </h2>
           <button onclick="varianteEnemy(chessmove=4)">d6</button>
           <button onclick="varianteEnemy(chessmove=5)">Cf6</button> 
           `
     }
     if (enemyMoveIndex === 3 && variante == 2) {
-        variantes.innerHTML = `
+        variantes.innerHTML = `<h2> Lances do inimigo: </h2>
           <button onclick="varianteEnemy(chessmove=8)">Bg4</button>
           <button onclick="varianteEnemy(chessmove=9)">Cf6</button> 
           `
     }
     if (enemyMoveIndex === 4 && variante == 3) {
-        variantes.innerHTML = `
+        variantes.innerHTML = `<h2> Lances do inimigo: </h2>
           <button onclick="varianteEnemy(chessmove=10)">Bxf3</button>
           <button onclick="varianteEnemy(chessmove=11)">Qd7</button> 
           `
     }
     if (enemyMoveIndex === 4 && variante == 5) {
-        variantes.innerHTML = `
+        variantes.innerHTML = `<h2> Lances do inimigo: </h2>
           <button onclick="varianteEnemy(chessmove=16)">Be5</button>
           <button onclick="varianteEnemy(chessmove=17)">Qualquer outro movimento</button> 
           `
     }
     if (enemyMoveIndex === 8 && variante == 2) {
-        variantes.innerHTML = `
+        variantes.innerHTML = `<h2> Lances do inimigo: </h2>
           <button onclick="varianteEnemy(chessmove=12)">Bxf3</button>
           <button onclick="varianteEnemy(chessmove=13)">Bh5</button> 
           `
     }
     if (enemyMoveIndex === 8 && variante == 4) {
-        variantes.innerHTML = `
+        variantes.innerHTML = `<h2> Lances do inimigo: </h2>
           <button onclick="varianteEnemy(chessmove=12)">Bxf3</button>
           <button onclick="varianteEnemy(chessmove=13)">Bh5</button> 
           `
     }
     if (enemyMoveIndex === 3 && variante == 4) {
-        variantes.innerHTML = `
+        variantes.innerHTML = `<h2> Lances do inimigo: </h2>
           <button onclick="varianteEnemy(chessmove=15)">d6</button>
           <button onclick="varianteEnemy(chessmove=14)">Bc5</button> 
           `
     }
+    // if (enemyMoveIndex===6 && variante==1||enemyMoveIndex===6 && variante==1){
+    //     variantes.innerHTML = `<button onclick="clicar()">Começar</button>`
+    // }
+    
 }
 
 var variante = 0
@@ -1009,6 +1035,7 @@ function resetar() {
     board.position('start');
     removeGreySquares();
     enemyMoveIndex = 0;
+    variantes.innerHTML=``
     vetorEnemy = [{
         color: "b",
         flags: "b",

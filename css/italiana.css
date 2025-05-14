@@ -11,6 +11,7 @@ display: flex;
 flex-flow: column nowrap; 
 height: 100%;
 width: 100%; 
+    position: relative;
 }
 .box>div{
     
@@ -24,7 +25,7 @@ width: 100%;
     display: flex;
     justify-content:center ;
     align-items: center;
-    color:black
+    color:black;
 }
 .descricao{
     height: 20%;
@@ -34,3 +35,25 @@ width: 100%;
     height: 20%;
     margin: 20px; 
 }
+.variantes{
+    margin-left: 20px;
+    height: 20%;
+}
+.variantes>button {
+    margin: 20px 20px 20px 0px;
+    padding: 8px 20px ;
+}
+#opcoes>button{ 
+    position: absolute;
+    right: 20px;
+    padding: 5px;
+}
+#opcoes{
+
+    min-height: 4%; 
+    right: 10px;
+    margin-bottom: 40px; 
+}
+/* .variantes>h3{
+    margin-bottom: 10px;
+} */
