@@ -37,37 +37,46 @@ function onSnapEnd() {
     board.position(game.fen())
 }
 
+
 function updateStatus() {
-    var status = ''
+  var status = ''
 
-    var moveColor = 'White'
-    if (game.turn() === 'b') {
-        moveColor = 'Black'
+  var moveColor = 'White'
+  vez.style.color='black';
+    vez.style.backgroundColor='white';
+    vez.innerHTML='<h1>Vez das brancas</h1>' 
+
+  if (game.turn() === 'b') {
+    vez.style.color='white';
+    vez.style.backgroundColor='black';
+    vez.innerHTML='<h1>Vez das pretas</h1>'
+    moveColor = 'Black'
+  }
+
+
+  // checkmate?
+  if (game.in_checkmate()) {
+    status = 'Game over, ' + moveColor + ' is in checkmate.'
+  }
+
+  // draw?
+  else if (game.in_draw()) {
+    status = 'Game over, drawn position'
+  }
+
+  // game still on
+  else {
+    status = moveColor + ' to move'
+
+    // check?
+    if (game.in_check()) {
+      status += ', ' + moveColor + ' is in check'
     }
+  }
 
-    // checkmate?
-    if (game.in_checkmate()) {
-        status = 'Game over, ' + moveColor + ' is in checkmate.'
-    }
-
-    // draw?
-    else if (game.in_draw()) {
-        status = 'Game over, drawn position'
-    }
-
-    // game still on
-    else {
-        status = moveColor + ' to move'
-
-        // check?
-        if (game.in_check()) {
-            status += ', ' + moveColor + ' is in check'
-        }
-    }
-
-    $status.html(status)
-    $fen.html(game.fen())
-    $pgn.html(game.pgn())
+  $status.html(status)
+  $fen.html(game.fen())
+  $pgn.html(game.pgn())
 }
 
 var config = {
