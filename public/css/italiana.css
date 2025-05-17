@@ -57,3 +57,21 @@ width: 100%;
 /* .variantes>h3{
     margin-bottom: 10px;
 } */
+canvas{
+    max-width:500px ;
+    max-height: 400px;
+    min-width: 300px;
+    min-height: 300px;
+    
+}
+.titulo{
+    position:absolute;
+    top: 100px;
+}
+.dash{ 
+display: flex;
+align-items: center;
+flex-direction: column;
+margin: 5px 50px 50px 50px;
+}
+ 
