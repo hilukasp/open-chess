@@ -3,41 +3,53 @@ var board = null
 var posicoes = [
   {
     id_posicao: 1,
-    posicao: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR',
-    nome_categoria: 'Abertura',
-    resposta: 'e4'
+    posicao: 'r2qkbnr/ppp2ppp/2np4/4p3/2B1P1b1/2P2N2/PP1P1PPP/RNBQK2R w KQkq - 1 5',
+    nome_categoria: 'Italiana',
+    resposta: 'Qb3',
+    orientacao:'White'
   },
   {
     id_posicao: 2,
-    posicao: 'r1bqkbnr/pppp1ppp/2n5/4p3/4P3/5N2/PPPP1PPP/RNBQKB1R',
-    nome_categoria: 'Defesa',
-    resposta: 'Nf3'
+    posicao: 'r1bqkb1r/pppp1ppp/2n2n2/1B2p3/4P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 4 4',
+    nome_categoria: 'Ruy Lopez',
+    resposta: 'O-O',
+    orientacao:'White'
   },
   {
     id_posicao: 3,
-    posicao: 'rnbqkb1r/pppppppp/5n2/8/8/5N2/PPPPPPPP/RNBQKB1R',
-    nome_categoria: 'Tática',
-    resposta: 'Nc3'
+    posicao: 'r1b1kbnr/pp3ppp/1qn1p3/2ppP3/3P4/2PB1N2/PP3PPP/RNBQK2R b KQkq - 4 6',
+    nome_categoria: 'Francesa',
+    resposta: 'Bd7',
+    orientacao:'black',
   },
   {
     id_posicao: 4,
     posicao: 'r1bqkbnr/pp3ppp/2n1p3/1BppP3/3P4/5N2/PPP2PPP/RNBQK2R b KQkq - 3 5',
     nome_categoria: 'Francesa',
-    resposta: 'Qb6'
+    resposta: 'Qb6',
+    orientacao:'black',
   },
   {
     id_posicao: 5,
     posicao: 'r1bqkb1r/pppp1ppp/2n2n2/4p3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 4 4',
     nome_categoria: 'Italiana',
-    resposta: 'd3'
-  }
+    resposta: 'd3',
+    orientacao:'white'
+  },
 ]
 // var posicao ='r1bqkb1r/pppp1ppp/2n2n2/4p3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 4 4'
-var game = new Chess(`${posicoes[3].posicao}`) 
+var max=4
+var min=0
+var random =Math.random() * (max- min + 1) + min
+var numeroaleatorio=parseInt(random)
+// var numeroaleatorio=1
+console.log(numeroaleatorio)
+console.log(random)
+
+var game = new Chess(`${posicoes[numeroaleatorio].posicao}`) 
 var $status = $('#status') 
 var $fen = $('#fen')
-var $pgn = $('#pgn') 
-// parseInt(Math.random() * (5 - 1) + 1)
+var $pgn = $('#pgn')
 var primeiratentativa=true //tentativa para registrar no banco
 
 
@@ -68,7 +80,7 @@ function onDrop(source, target) {
   if (move === null) return 'snapback'
   
  
-  if (move.san==posicoes[3].resposta) { 
+  if (move.san==posicoes[numeroaleatorio].resposta) { 
     vez.style.color='black';
     vez.style.backgroundColor='rgb(96, 255, 117)';
         descricao.innerHTML=`<h1>Muito bem! Continue assim</h1>`
@@ -109,7 +121,7 @@ function onSnapEnd() {
 function updateStatus() {
   var status = ''
 
-  var moveColor = 'White'
+  var moveColor = 'white'
   vez.style.color='black';
     vez.style.backgroundColor='white';
     vez.innerHTML='<h1>Vez das brancas</h1>' 
@@ -118,7 +130,7 @@ function updateStatus() {
     vez.style.color='white';
     vez.style.backgroundColor='black';
     vez.innerHTML='<h1>Vez das pretas</h1>'
-    moveColor = 'Black'
+    moveColor = 'black'
   }
 
 
@@ -147,11 +159,12 @@ function updateStatus() {
   $pgn.html(game.pgn())
 }
  
-
-
+ console.log(posicoes[numeroaleatorio].orientacao)
 var config = {
   draggable: true,
-  position: `${posicoes[3].posicao}`,
+  position: `${posicoes[numeroaleatorio].posicao}`,
+  orientation:`${posicoes[numeroaleatorio].orientacao}`,
+  // orientation:`${posicoes[numeroaleatorio].orientacao}`,
   onDragStart: onDragStart,
   onDrop: onDrop,
   onSnapEnd: onSnapEnd
@@ -170,7 +183,7 @@ function resposta() {
   board.position(game.fen()); // atualiza o tabuleiro com o novo FEN
   setTimeout(()=>{
     
-    game.move(`${posicoes[3].resposta}`)
+    game.move(`${posicoes[numeroaleatorio].resposta}`)
     // game.move(`Qb6`)
     board.position(game.fen());
     updateStatus()       
