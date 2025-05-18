@@ -13,11 +13,11 @@
         crossorigin="anonymous"></script>
     <script src="../js/chessboard-1.0.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.3/chess.min.js"></script>
-    <script src="js/sessao.js"></script> 
+    <script src="js/sessao.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
-<body>
+<body onload="listarHistorico()">
     <header>
         <div class="logo"><a href="index.html">
                 <h1>Open-Chess</h1>
@@ -27,14 +27,14 @@
             <a href="flashcard.html">Flashcard</a>
             <a href="deshboard.html">Dashboard</a>
             <a href="login.html">Login/Cadastro</a>
-            
+
         </div>
     </header>
 
-    <main> 
+    <main>
         <div class="row row2">
             <h1 class="titulo">Estastísticas</h1>
-        
+
             <div style="width: 50%;" class="dash">
                 <h2>Dominio de aberturas por categoria</h2>
                 <canvas id="pizza"></canvas>
@@ -43,7 +43,7 @@
                 <h2>Estastísticas geral</h2>
                 <canvas id="barra"></canvas>
             </div>
- 
+
         </div>
     </main>
 
@@ -54,68 +54,126 @@
 
 
     <script>
-        Chart.defaults.color = '#fff';
-        // Chart.defaults.backgroundColor = '#FFF';
-        Chart.defaults.borderColor = '#36A2EB';
+        function grafico() {
+            Chart.defaults.color = '#fff';
+            // Chart.defaults.backgroundColor = '#FFF';
+            Chart.defaults.borderColor = '#36A2EB';
 
 
-        const ctx2 = document.getElementById('pizza');
+            const ctx2 = document.getElementById('pizza');
 
-        new Chart(ctx2, {
-            type: 'doughnut',
-            data: {
-                labels: [
-                    'Italiana',
-                    'Francesa',
-                    'Ruy Lopes'
-                ],
-                datasets: [{
-                    label: 'Acertou',
-                    data: [300, 50, 100],
-                    backgroundColor: [
-                        'rgb(255, 99, 132)',
-                        'rgb(54, 162, 235)',
-                        'rgb(255, 205, 86)'
-                    ],
-                    hoverOffset: 4
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
+            new Chart(ctx2, {
+                type: 'doughnut',
+                data: {
+                    labels: vetorlabel
+                    ,
+                    datasets: [{
+                        label: 'Acertou',
+                        data: vetordata,
+                        backgroundColor: [
+                            'rgb(255, 99, 132)',
+                            'rgb(54, 162, 235)',
+                            'rgb(255, 205, 86)'
+                        ],
+                        hoverOffset: 4
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
                     }
                 }
-            }
-        });
+            });
 
-        const ctx = document.getElementById('barra');
-        new Chart(ctx, {
+            const ctx = document.getElementById('barra');
+            new Chart(ctx, {
 
-            type: 'bar',
-            data: {
-                labels: ['Acertos', 'Erros'],
-                datasets: [{
-                    label:['Resultado'], 
-                    data: [65, 59],
-                    backgroundColor: [
-                        'rgba(255, 99, 132 )',
-                        'rgba(255, 159, 64)'
-                    ],
-                    borderColor: [
-                        'rgb(255, 99, 132)',
-                        'rgb(255, 159, 64)'
-                    ],
-                    borderWidth: 1
-                }],
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
+                type: 'bar',
+                data: {
+                    labels: ['Acertos', 'Erros'],
+                    datasets: [{
+                        label: ['Resultado'],
+                        data: [correto, errado],
+                        backgroundColor: [
+                            'rgba(255, 99, 132 )',
+                            'rgba(255, 159, 64)'
+                        ],
+                        borderColor: [
+                            'rgb(255, 99, 132)',
+                            'rgb(255, 159, 64)'
+                        ],
+                        borderWidth: 1
+                    }],
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
                     }
                 }
+            });
+        }
+        var correto = 0
+        var errado = 0
+        var vetordata=[]
+        var vetorlabel=[]
+
+        function listarHistorico() {
+            var idUsuario = sessionStorage.ID_USUARIO;
+            if (!idUsuario) {
+                alert('user não existe')
             }
-        });
+            fetch(`/medidas/ultimas/${idUsuario}`).then(function (response) {
+
+                if (response.ok) {
+                    response.json().then(function (resposta) {
+                        console.log(resposta)
+
+                        for (i = 0; i < resposta.length; i++) { 
+                            if (resposta[i].correto == 1) {
+                                correto++
+                            } else {
+                                errado++
+                            }
+                        }
+ 
+                    });
+                } else {
+                    console.error('Nenhum dado encontrado ou erro na API');
+                }
+
+
+            })
+                .catch(function (error) {
+                    console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+                });
+
+
+            fetch(`/medidas/categoria/${idUsuario}`).then(function (response) {
+
+                if (response.ok) {
+                    response.json().then(function (resposta) { 
+
+                        for (i = 0; i < resposta.length; i++) { 
+                            vetordata.push(resposta[i].correto)
+                            vetorlabel.push(resposta[i].nome_categoria)
+                        } 
+                        console.log( vetorlabel)
+
+                        grafico()
+                    });
+                } else {
+                    console.error('Nenhum dado encontrado ou erro na API');
+                }
+
+
+            })
+                .catch(function (error) {
+                    console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+                });
+        }
     </script>
 </body>

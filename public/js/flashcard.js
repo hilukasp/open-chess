@@ -1,6 +1,6 @@
 var board = null
 
-var posicoes = [
+/*var posicoes = [
   {
     id: 1,
     posicao: 'r2qkbnr/ppp2ppp/2np4/4p3/2B1P1b1/2P2N2/PP1P1PPP/RNBQK2R w KQkq - 1 5',
@@ -36,27 +36,27 @@ var posicoes = [
     resposta: 'd3',
     orientacao:'white'
   },
-]
+]*/
 // var posicao ='r1bqkb1r/pppp1ppp/2n2n2/4p3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 4 4'
-var max=4
-var min=0
-var random =Math.random() * (max- min + 1) + min
-var numeroaleatorio=parseInt(random)
+var game = new Chess()
+var max = 4
+var min = 0
+var random = Math.random() * (max - min + 1) + min
+var numeroaleatorio = parseInt(random)
 // var numeroaleatorio=1
 var correto
 console.log(numeroaleatorio)
 console.log(random)
 
-var game = new Chess(`${posicoes[numeroaleatorio].posicao}`) 
-var $status = $('#status') 
+var $status = $('#status')
 var $fen = $('#fen')
 var $pgn = $('#pgn')
-var primeiratentativa=true //tentativa para registrar no banco
+var primeiratentativa = true //tentativa para registrar no banco
 
 
 function onDragStart(source, piece, position, orientation) {
   // do not pick up pieces if the game is over
-  
+
   if (game.game_over()) return false
 
   // only pick up pieces for the side to move
@@ -65,7 +65,7 @@ function onDragStart(source, piece, position, orientation) {
     return false
   }
 }
- 
+
 function onDrop(source, target) {
   // see if the move is legal
   var move = game.move({
@@ -75,41 +75,41 @@ function onDrop(source, target) {
   })
   console.log(move)
 
-  
+
 
   // illegal move
   if (move === null) return 'snapback'
-  
- 
-  if (move.san==posicoes[numeroaleatorio].resposta) { 
-    vez.style.color='black';
-    vez.style.backgroundColor='rgb(96, 255, 117)';
-        descricao.innerHTML=`<h1>Muito bem! Continue assim</h1>`
-    vez.innerHTML='<h1>Você acertou</h1>' 
-    variantes.innerHTML=``
+
+
+  if (move.san == posicoes[numeroaleatorio].resposta) {
+    vez.style.color = 'black';
+    vez.style.backgroundColor = 'rgb(96, 255, 117)';
+    descricao.innerHTML = `<h1>Muito bem! Continue assim</h1>`
+    vez.innerHTML = '<h1>Você acertou</h1>'
+    variantes.innerHTML = ``
     // setTimeout(() => updateStatus(), 5000)
     if (primeiratentativa) {
       // faça a inserção no banco
-      correto=true
+      correto = true
       publicar(correto)
-      primeiratentativa=false
+      primeiratentativa = false
     }
-    
+
     setTimeout(() => window.location.reload(), 1500)
-  }else{
+  } else {
     console.log('nao entroi')
-    vez.style.color='black';
-    vez.style.backgroundColor='rgb(206, 0, 0)';
-    descricao.innerHTML=`<h1>Resposta errada...</h1>`
-    variantes.innerHTML=`
+    vez.style.color = 'black';
+    vez.style.backgroundColor = 'rgb(206, 0, 0)';
+    descricao.innerHTML = `<h1>Resposta errada...</h1>`
+    variantes.innerHTML = `
     <button onclick="refazer()">Refazer</button>
     <button onclick="resposta()">Mostrar resposta</button>
     `
     if (primeiratentativa) {
       //inserção no banco
-      correto=false
+      correto = false
       publicar(correto)
-      primeiratentativa=false
+      primeiratentativa = false
     }
   }
   // updateStatus()
@@ -118,23 +118,23 @@ function onDrop(source, target) {
 // update the board position after the piece snap
 // for castling, en passant, pawn promotion
 function onSnapEnd() {
-  
+
   board.position(game.fen())
-  
+
 }
 
 function updateStatus() {
   var status = ''
 
   var moveColor = 'white'
-  vez.style.color='black';
-    vez.style.backgroundColor='white';
-    vez.innerHTML='<h1>Vez das brancas</h1>' 
+  vez.style.color = 'black';
+  vez.style.backgroundColor = 'white';
+  vez.innerHTML = '<h1>Vez das brancas</h1>'
 
   if (game.turn() === 'b') {
-    vez.style.color='white';
-    vez.style.backgroundColor='black';
-    vez.innerHTML='<h1>Vez das pretas</h1>'
+    vez.style.color = 'white';
+    vez.style.backgroundColor = 'black';
+    vez.innerHTML = '<h1>Vez das pretas</h1>'
     moveColor = 'black'
   }
 
@@ -163,82 +163,121 @@ function updateStatus() {
   $fen.html(game.fen())
   $pgn.html(game.pgn())
 }
- 
- console.log(posicoes[numeroaleatorio].orientacao)
-var config = {
-  draggable: true,
-  position: `${posicoes[numeroaleatorio].posicao}`,
-  orientation:`${posicoes[numeroaleatorio].orientacao}`,
-  // orientation:`${posicoes[numeroaleatorio].orientacao}`,
-  onDragStart: onDragStart,
-  onDrop: onDrop,
-  onSnapEnd: onSnapEnd
-  
-  
-}
+
+// console.log(posicoes[numeroaleatorio].orientacao)
+
 
 function refazer() {
   game.undo(); // desfaz o movimento
   board.position(game.fen()); // atualiza o tabuleiro com o novo FEN
-  updateStatus()        
+  updateStatus()
 }
 //mostra a resposta
 function resposta() {
   game.undo(); // desfaz o movimento
   board.position(game.fen()); // atualiza o tabuleiro com o novo FEN
-  setTimeout(()=>{
-    
+  setTimeout(() => {
+
     game.move(`${posicoes[numeroaleatorio].resposta}`)
     // game.move(`Qb6`)
     board.position(game.fen());
-    updateStatus()       
-    
-    vez.style.color='black';
-    vez.style.backgroundColor='rgb(96, 255, 117)';
-        descricao.innerHTML=`<h1>Muito bem! Continue assim</h1>`
-    vez.innerHTML='<h1>Você acertou</h1>' 
-    variantes.innerHTML=``
-    setTimeout(()=>{window.location.reload()},2000) 
-  },1000)
+    updateStatus()
+
+    vez.style.color = 'black';
+    vez.style.backgroundColor = 'rgb(96, 255, 117)';
+    descricao.innerHTML = `<h1>Muito bem! Continue assim</h1>`
+    vez.innerHTML = '<h1>Você acertou</h1>'
+    variantes.innerHTML = ``
+    setTimeout(() => { window.location.reload() }, 2000)
+  }, 1000)
 
 
-} 
-board = Chessboard('myBoard', config)
+}
+function configuracao() {
+  console.log(posicoes)
+  game = new Chess(`${posicoes[numeroaleatorio].posicao}`)
 
-updateStatus()        
+  console.log(posicoes[numeroaleatorio].posicao)
+
+
+  var config = {
+    draggable: true,
+    position: `${posicoes[numeroaleatorio].posicao}`,
+    orientation: `${posicoes[numeroaleatorio].orientacao}`,
+    // orientation:`${posicoes[numeroaleatorio].orientacao}`,
+    onDragStart: onDragStart,
+    onDrop: onDrop,
+    onSnapEnd: onSnapEnd
+
+
+  }
+  board = Chessboard('myBoard', config)
+  
+updateStatus()
+}
+
 
 function publicar(booleano) {
-        var idUsuario = sessionStorage.ID_USUARIO;
+  var idUsuario = sessionStorage.ID_USUARIO;
+  if (!idUsuario) {
+    console.log('user não registrado')
+    return
+  }
 
-        var corpo = {
-            correto: booleano,
-            id_posicao: posicoes[numeroaleatorio].id
-        }
+  var corpo = {
+    correto: booleano,
+    id_posicao: posicoes[numeroaleatorio].id
+  }
 
-        fetch(`/flash/publicar/${idUsuario}`, {
-            method: "post",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(corpo)
-        }).then(function (resposta) {
+  fetch(`/flash/publicar/${idUsuario}`, {
+    method: "post",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(corpo)
+  }).then(function (resposta) {
 
-            console.log("resposta: ", resposta);
+    console.log("resposta: ", resposta);
 
-            if (resposta.ok) {
-                window.alert("Post realizado com sucesso pelo usuario de ID: " + idUsuario + "!");
-                
-                
-            } else if (resposta.status == 404) {
-                window.alert("Deu 404!");
-            } else {
-                throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
-            }
-        }).catch(function (resposta) {
-            console.log(`#ERRO: ${resposta}`);
-            
-        });
+    if (resposta.ok) {
+ 
 
-        return false;
 
+    } else if (resposta.status == 404) {
+      window.alert("Deu 404!");
+    } else {
+      throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
     }
+  }).catch(function (resposta) {
+    console.log(`#ERRO: ${resposta}`);
+
+  });
+
+  return false;
+
+}
+var posicoes
+function listarposicoes() {
+
+  fetch("/flash/listar").then(function (resposta) {
+    if (resposta.ok) {
+      if (resposta.status == 204) {
+        alert('nenhuma posicao registrada')
+      }
+
+      resposta.json().then(function (resposta) {
+        // console.log("Dados recebidos: ", JSON.stringify(resposta));
+        // console.log(resposta[2].orientacao)
+
+        posicoes = resposta
+
+        configuracao()
+      });
+    } else {
+      throw ('Houve um erro na API!');
+    }
+  }).catch(function (resposta) {
+    console.error(resposta);
+    finalizarAguardar();
+  });
+}
