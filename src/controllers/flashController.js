@@ -1,7 +1,7 @@
-var avisoModel = require("../models/avisoModel");
+var flashModel = require("../models/flashModel");
 
 function listar(req, res) {
-    avisoModel.listar().then(function (resultado) {
+    flashModel.listar().then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);
         } else {
@@ -17,7 +17,7 @@ function listar(req, res) {
 function listarPorUsuario(req, res) {
     var idUsuario = req.params.idUsuario;
 
-    avisoModel.listarPorUsuario(idUsuario)
+    flashModel.listarPorUsuario(idUsuario)
         .then(
             function (resultado) {
                 if (resultado.length > 0) {
@@ -42,7 +42,7 @@ function listarPorUsuario(req, res) {
 function pesquisarDescricao(req, res) {
     var descricao = req.params.descricao;
 
-    avisoModel.pesquisarDescricao(descricao)
+    flashModel.pesquisarDescricao(descricao)
         .then(
             function (resultado) {
                 if (resultado.length > 0) {
@@ -61,18 +61,18 @@ function pesquisarDescricao(req, res) {
 }
 
 function publicar(req, res) {
-    var titulo = req.body.titulo;
-    var descricao = req.body.descricao;
+    var correto = req.body.correto;
+    var id_posicao = req.body.id_posicao;
     var idUsuario = req.params.idUsuario;
 
-    if (titulo == undefined) {
+    if (correto == undefined) {
         res.status(400).send("O título está indefinido!");
-    } else if (descricao == undefined) {
+    } else if (id_posicao == undefined) {
         res.status(400).send("A descrição está indefinido!");
     } else if (idUsuario == undefined) {
         res.status(403).send("O id do usuário está indefinido!");
     } else {
-        avisoModel.publicar(titulo, descricao, idUsuario)
+        flashModel.publicar(correto,  idUsuario, id_posicao)
             .then(
                 function (resultado) {
                     res.json(resultado);
@@ -92,7 +92,7 @@ function editar(req, res) {
     var novaDescricao = req.body.descricao;
     var idAviso = req.params.idAviso;
 
-    avisoModel.editar(novaDescricao, idAviso)
+    flashModel.editar(novaDescricao, idAviso)
         .then(
             function (resultado) {
                 res.json(resultado);
@@ -111,7 +111,7 @@ function editar(req, res) {
 function deletar(req, res) {
     var idAviso = req.params.idAviso;
 
-    avisoModel.deletar(idAviso)
+    flashModel.deletar(idAviso)
         .then(
             function (resultado) {
                 res.json(resultado);

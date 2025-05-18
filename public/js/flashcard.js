@@ -2,35 +2,35 @@ var board = null
 
 var posicoes = [
   {
-    id_posicao: 1,
+    id: 1,
     posicao: 'r2qkbnr/ppp2ppp/2np4/4p3/2B1P1b1/2P2N2/PP1P1PPP/RNBQK2R w KQkq - 1 5',
     nome_categoria: 'Italiana',
     resposta: 'Qb3',
     orientacao:'White'
   },
   {
-    id_posicao: 2,
+    id: 2,
     posicao: 'r1bqkb1r/pppp1ppp/2n2n2/1B2p3/4P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 4 4',
     nome_categoria: 'Ruy Lopez',
     resposta: 'O-O',
     orientacao:'White'
   },
   {
-    id_posicao: 3,
+    id: 3,
     posicao: 'r1b1kbnr/pp3ppp/1qn1p3/2ppP3/3P4/2PB1N2/PP3PPP/RNBQK2R b KQkq - 4 6',
     nome_categoria: 'Francesa',
     resposta: 'Bd7',
     orientacao:'black',
   },
   {
-    id_posicao: 4,
+    id: 4,
     posicao: 'r1bqkbnr/pp3ppp/2n1p3/1BppP3/3P4/5N2/PPP2PPP/RNBQK2R b KQkq - 3 5',
     nome_categoria: 'Francesa',
     resposta: 'Qb6',
     orientacao:'black',
   },
   {
-    id_posicao: 5,
+    id: 5,
     posicao: 'r1bqkb1r/pppp1ppp/2n2n2/4p3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 4 4',
     nome_categoria: 'Italiana',
     resposta: 'd3',
@@ -43,6 +43,7 @@ var min=0
 var random =Math.random() * (max- min + 1) + min
 var numeroaleatorio=parseInt(random)
 // var numeroaleatorio=1
+var correto
 console.log(numeroaleatorio)
 console.log(random)
 
@@ -89,6 +90,8 @@ function onDrop(source, target) {
     // setTimeout(() => updateStatus(), 5000)
     if (primeiratentativa) {
       // faça a inserção no banco
+      correto=true
+      publicar(correto)
       primeiratentativa=false
     }
     
@@ -104,6 +107,8 @@ function onDrop(source, target) {
     `
     if (primeiratentativa) {
       //inserção no banco
+      correto=false
+      publicar(correto)
       primeiratentativa=false
     }
   }
@@ -202,3 +207,38 @@ board = Chessboard('myBoard', config)
 
 updateStatus()        
 
+function publicar(booleano) {
+        var idUsuario = sessionStorage.ID_USUARIO;
+
+        var corpo = {
+            correto: booleano,
+            id_posicao: posicoes[numeroaleatorio].id
+        }
+
+        fetch(`/flash/publicar/${idUsuario}`, {
+            method: "post",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(corpo)
+        }).then(function (resposta) {
+
+            console.log("resposta: ", resposta);
+
+            if (resposta.ok) {
+                window.alert("Post realizado com sucesso pelo usuario de ID: " + idUsuario + "!");
+                
+                
+            } else if (resposta.status == 404) {
+                window.alert("Deu 404!");
+            } else {
+                throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+            
+        });
+
+        return false;
+
+    }
