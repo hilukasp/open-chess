@@ -124,7 +124,8 @@
         function listarHistorico() {
             var idUsuario = sessionStorage.ID_USUARIO;
             if (!idUsuario) {
-                alert('user não existe')
+                alert('usuário não existe, faça o login primeiro')
+                window.location.href = "login.html";
             }
             fetch(`/medidas/ultimas/${idUsuario}`).then(function (response) {
 

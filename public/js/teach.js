@@ -174,8 +174,8 @@ function updateStatus() {
 }
 
 var config = {
-    position: 'start',
-
+    position: 'r1bqkbnr/pppp1ppp/2n5/4p3/2B1P3/2PP1NNP/PP3PP1/R1BQR1K1',
+    
 }
 function clicar() {
     var config = {
@@ -417,7 +417,7 @@ function varianteEnemy(chessMove) {
 
         vetortemporario = [
             {
-                from: "c4", to: "f7"
+                from: "d2", to: "d3"
             },
             {
                 from: "b3", to: "e6"
