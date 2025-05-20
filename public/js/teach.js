@@ -175,7 +175,7 @@ function updateStatus() {
 
 var config = {
     position: 'r1bqkbnr/pppp1ppp/2n5/4p3/2B1P3/2PP1NNP/PP3PP1/R1BQR1K1',
-    
+
 }
 function clicar() {
     var config = {
@@ -189,8 +189,8 @@ function clicar() {
 
     board = Chessboard('myBoard', config)
     greySquare()
-    opcoes.innerHTML=`<button onclick="resetar()">Recomeçar</button>`
-    variantes.innerHTML=``
+    opcoes.innerHTML = `<button onclick="resetar()">Recomeçar</button>`
+    variantes.innerHTML = ``
 }
 
 board = Chessboard('myBoard', config)
@@ -274,7 +274,7 @@ function validate(enemyMoveIndex) {
           <button onclick="varianteEnemy(chessmove=17)">Qualquer outro movimento</button> 
           `
     }
-    if (enemyMoveIndex === 8 && variante == 2) {
+    if (enemyMoveIndex === 8 && (variante == 2 || variante == 6)) {
         variantes.innerHTML = `<h2> Lances do inimigo: </h2>
           <button onclick="varianteEnemy(chessmove=12)">Bxf3</button>
           <button onclick="varianteEnemy(chessmove=13)">Bh5</button> 
@@ -295,7 +295,7 @@ function validate(enemyMoveIndex) {
     // if (enemyMoveIndex===6 && variante==1||enemyMoveIndex===6 && variante==1){
     //     variantes.innerHTML = `<button onclick="clicar()">Começar</button>`
     // }
-    
+
 }
 
 var variante = 0
@@ -393,6 +393,8 @@ function varianteEnemy(chessMove) {
     }
 
     if (chessMove == 5) {
+
+        variante = 6
         variantes.innerHTML = ``
         vetortemporario = [
             {
@@ -406,11 +408,36 @@ function varianteEnemy(chessMove) {
             {
                 "color": "b",
                 "from": "e8",
-                "to": "e7",
-                "flags": "n",
+                "to": "g8",
+                "flags": "k",
                 "piece": "k",
-                "san": "Ke7"
-            }
+                "san": "O-O"
+            },
+            {
+                "color": "b",
+                "from": "d7",
+                "to": "d6",
+                "flags": "n",
+                "piece": "p",
+                "san": "d6"
+            },
+            {
+                "color": "b",
+                "from": "c8",
+                "to": "g4",
+                "flags": "n",
+                "piece": "b",
+                "san": "Bg4"
+            },
+            {
+                "color": "b",
+                "from": "h7",
+                "to": "h6",
+                "flags": "n",
+                "piece": "p",
+                "san": "h6"
+            },
+
         ]
         vetortemporario.forEach(mov => vetorEnemy.push(mov))
         makeEnemyMove()
@@ -420,7 +447,16 @@ function varianteEnemy(chessMove) {
                 from: "d2", to: "d3"
             },
             {
-                from: "b3", to: "e6"
+                from: "e1", to: "g1"
+            },
+            {
+                from: "f1", to: "e1"
+            },
+            {
+                from: "b1", to: "d2"
+            },
+            {
+                from: "h2", to: "h3"
             }
         ]
         vetortemporario.forEach(shadow => vetorShadow.push(shadow))
@@ -820,6 +856,30 @@ function varianteEnemy(chessMove) {
                 "flags": "n",
                 "piece": "b",
                 "san": "Bg6"
+            }, 
+            {
+                "color": "b",
+                "from": "c5",
+                "to": "b6",
+                "flags": "n",
+                "piece": "b",
+                "san": "Bb6"
+            },
+            {
+                "color": "b",
+                "from": "a7",
+                "to": "a5",
+                "flags": "n",
+                "piece": "p",
+                "san": "a5"
+            },
+            {
+                "color": "b",
+                "from": "c6",
+                "to": "d8",
+                "flags": "n",
+                "piece": "n",
+                "san": "Nd8"
             },
             {
                 "color": "b",
@@ -840,6 +900,15 @@ function varianteEnemy(chessMove) {
             },
             {
                 from: "f1", to: "g3"
+            },
+            {
+                from: "b2", to: "b4"
+            },
+            {
+                from: "a2", to: "a4"
+            },
+            {
+                from: "b4", to: "b5"
             },
             {
                 from: "d3", to: "d4"
@@ -888,12 +957,12 @@ function varianteEnemy(chessMove) {
             },
             {
                 "color": "b",
-                "from": "f8",
-                "to": "e8",
+                "from": "h7",
+                "to": "h6",
                 "flags": "n",
-                "piece": "r",
-                "san": "Re8"
-            }
+                "piece": "p",
+                "san": "h6"
+            },
         ]
         vetortemporario.forEach(mov => vetorEnemy.push(mov))
         makeEnemyMove()
@@ -1035,7 +1104,7 @@ function resetar() {
     board.position('start');
     removeGreySquares();
     enemyMoveIndex = 0;
-    variantes.innerHTML=``
+    variantes.innerHTML = ``
     vetorEnemy = [{
         color: "b",
         flags: "b",
