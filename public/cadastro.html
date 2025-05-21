@@ -142,10 +142,14 @@
           setTimeout(() => {
             window.location = "login.html";
           }, "2000");
-
-          limparFormulario();
+ 
           
         } else {
+          cardErro.style.display = "block";
+
+          mensagem_erro.innerHTML =
+            "email já está cadastrado";
+
           throw "Houve um erro ao tentar realizar o cadastro!";
         }
       })
