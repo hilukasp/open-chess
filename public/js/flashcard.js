@@ -54,6 +54,7 @@ var $pgn = $('#pgn')
 var primeiratentativa = true //tentativa para registrar no banco
 
 
+
 function onDragStart(source, piece, position, orientation) {
   // do not pick up pieces if the game is over
 
@@ -198,7 +199,7 @@ function configuracao() {
   game = new Chess(`${posicoes[numeroaleatorio].posicao}`)
 
   console.log(posicoes[numeroaleatorio].posicao)
-
+  descricao.innerHTML = `<h3>Abertura: ${posicoes[numeroaleatorio].nome_categoria}</h3>`
 
   var config = {
     draggable: true,

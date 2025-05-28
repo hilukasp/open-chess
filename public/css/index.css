@@ -89,8 +89,9 @@ footer{
     margin-left: 100px;
     
 }
-#myBoard,#myBoard2{
+#myBoard,#myBoard2,#myBoardtext{
     margin: auto; 
+    width: 400px;
 }
 main{
     display: flex;

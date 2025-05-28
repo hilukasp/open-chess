@@ -88,7 +88,8 @@ vetorEnemy = [{
     "to": "c6",
     "flags": "n",
     "piece": "n",
-    "san": "Nc6"
+    "san": "Nc6",
+    "mensagem": "Essa é a abertura Italiana."
 }
 ]
 
@@ -115,9 +116,13 @@ function makeEnemyMove() {
     var move = game.move(vetorEnemy[enemyMoveIndex]);
     if (move) {
         board.position(game.fen());
+        if (vetorEnemy[enemyMoveIndex].mensagem!=undefined) {
+            descricao.innerHTML=`${vetorEnemy[enemyMoveIndex].mensagem}`
+        }
         enemyMoveIndex++;
         updateStatus();
         greySquare()
+        
     }
 }
 
@@ -312,8 +317,8 @@ function varianteEnemy(chessMove) {
             from: "f8",
             piece: "b",
             san: "c5",
-            to: "c5"
-            // "mensagem": "O rei preto se move para e7 em um lance cauteloso."
+            to: "c5",
+            "mensagem": "O oponente defende o peão de e5 com o cavalo<br><br>Jogue c3 para preparar o avanço do d4 em algum momento"
         }
 
         vetorEnemy.push(vetortemporario)
@@ -379,7 +384,8 @@ function varianteEnemy(chessMove) {
             "to": "d6",
             "flags": "n",
             "piece": "p",
-            "san": "d6"
+            "san": "d6",
+    "mensagem": "d5 impede que o oponente consiga voltar com o bispo para um lugar mais seguro<br><br> não deixe a oportunidade passar e ataque o bispo para manter a pressão"
         }
         vetorEnemy.push(vetortemporario)
         makeEnemyMove()
@@ -403,7 +409,8 @@ function varianteEnemy(chessMove) {
                 "to": "f6",
                 "flags": "n",
                 "piece": "n",
-                "san": "Nf6"
+                "san": "Nf6",
+                "mensagem":"Tome o peão o central" //continuar
             },
             {
                 "color": "b",
@@ -1105,6 +1112,15 @@ function resetar() {
     removeGreySquares();
     enemyMoveIndex = 0;
     variantes.innerHTML = ``
+    descricao.innerHTML=`
+    <p>A Italiana é uma das aberturas mais clássicas e agressiva do xadrez, ela tem o principal objetivo de abrir o centro e proteger o rei com o roque pequeno. </p>
+                        <br>
+                        <p>Formidável para pessoas que gostam de uma posições mais abertas e com várias táticas</p><br>
+                        <p>A abertura do centro só acontece quando o peão estiver em c3 e depois o peão do meio avança para d4</p><br>
+                        <p>No avanço é importante que todas as peças estejam protegidas para não haver perda de material</p><br>
+                        <p>Na maioria das vezes a posição das brancas ficarão assim, com o cavalo de g3 e a torre defendendo e4</p><br>
+                        <p>O resto das peças farão contenção para o avanço de d4</p>
+    `
     vetorEnemy = [{
         color: "b",
         flags: "b",
@@ -1119,7 +1135,8 @@ function resetar() {
         "to": "c6",
         "flags": "n",
         "piece": "n",
-        "san": "Nc6"
+        "san": "Nc6",
+    "mensagem": "Essa é a abertura Italiana."
     }
     ]
 
