@@ -340,7 +340,8 @@ function varianteEnemy(chessMove) {
             "to": "d6",
             "flags": "n",
             "piece": "p",
-            "san": "d6"
+            "san": "d6",
+            "mensagem":"O oponente não fez nenhuma ameaça contra você ainda<br><br> Continue com o plano principal da italiana preparando o ataque no centro"
         }
 
         vetorEnemy.push(vetortemporario)
@@ -362,7 +363,8 @@ function varianteEnemy(chessMove) {
             "to": "f6",
             "flags": "n",
             "piece": "n",
-            "san": "Nf6"
+            "san": "Nf6",
+            "mensagem":"O oponente ameaçou e4<br><br>Defenda seu peão"
         }
 
         vetorEnemy.push(vetortemporario)
@@ -634,7 +636,7 @@ function varianteEnemy(chessMove) {
             "flags": "n",
             "piece": "b",
             "san": "Bg4",
-            "mensagem":"<br><br>"
+            "mensagem":"O bispo removido enfraquece a casa de b7<br><br>Jogue a rainha para ameaçar as duas casas simultaneamente, tanto a de f7 e b7"
         }
 
         vetorEnemy.push(vetortemporario)
@@ -657,7 +659,8 @@ function varianteEnemy(chessMove) {
                 "flags": "c",
                 "piece": "b",
                 "captured": "n",
-                "san": "Bxf3"
+                "san": "Bxf3",
+            "mensagem":"Ele tomou o seu cavalo, mas deixou uma casa vulnerável<br><br>Mate em 2"
             },
             {
                 "color": "b",
@@ -665,7 +668,8 @@ function varianteEnemy(chessMove) {
                 "to": "e7",
                 "flags": "n",
                 "piece": "k",
-                "san": "Ke7"
+                "san": "Ke7",
+            "mensagem":"Mate em 1<br><br>"
             }
         ]
         vetortemporario.forEach(mov => vetorEnemy.push(mov))
@@ -738,14 +742,17 @@ function varianteEnemy(chessMove) {
                 "to": "f6",
                 "flags": "n",
                 "piece": "n",
-                "san": "Nf6"
+                "san": "Nf6",
+            "mensagem":"O oponente ameaça tomar e4<br><br>Defenda o seu peão"
             }, {
                 "color": "b",
                 "from": "c8",
                 "to": "g4",
                 "flags": "n",
                 "piece": "b",
-                "san": "Bg4"
+                "san": "Bg4",  
+                "mensagem":"O bispo cravou o seu cavalo, ou seja, você não pode movimentar ele se não perde a rainha<br><br>Nesse momento é necessário tirar esse bispo dessa casa ameaçadora para evitar ataques mais fortes"
+            
             },
             {
                 "color": "b",
@@ -753,7 +760,8 @@ function varianteEnemy(chessMove) {
                 "to": "e7",
                 "flags": "n",
                 "piece": "b",
-                "san": "Be7"
+                "san": "Be7",
+            "mensagem":"Faça roque para defender melhor o seu rei<br><br>"
             },
             {
                 "color": "b",
@@ -761,7 +769,8 @@ function varianteEnemy(chessMove) {
                 "to": "g8",
                 "flags": "k",
                 "piece": "k",
-                "san": "O-O"
+                "san": "O-O",
+            "mensagem":"Ative a sua torre colocando ela no meio"
             },
             {
                 "color": "b",
@@ -769,7 +778,9 @@ function varianteEnemy(chessMove) {
                 "to": "h6",
                 "flags": "n",
                 "piece": "p",
-                "san": "h6"
+                "san": "h6",
+                "mensagem":"Ele fez um lance passivo<br><br>É hora de tirar esse bispo dessa casa"
+            
             }
 
         ]
@@ -1027,7 +1038,8 @@ function varianteEnemy(chessMove) {
                 "to": "d6",
                 "flags": "n",
                 "piece": "p",
-                "san": "d6"
+                "san": "d6",
+            "mensagem":"A casa de f7 está vulnerável<br><br>Único lance que ele pode fazer para defender a casa de f7 é utilizando o bispo"
             },
 
         ]
@@ -1051,7 +1063,8 @@ function varianteEnemy(chessMove) {
                 "to": "e6",
                 "flags": "n",
                 "piece": "b",
-                "san": "Be6"
+                "san": "Be6",
+                "mensagem":"o bispo bloqueou a casa de f7<br><br>tome o bispo dele com o cavalo"
             },
             {
                 "color": "b",
@@ -1060,7 +1073,8 @@ function varianteEnemy(chessMove) {
                 "flags": "c",
                 "piece": "p",
                 "captured": "n",
-                "san": "fxe6"
+                "san": "fxe6",
+            "mensagem":"tome o peão do centro<br><br>você adquiriu vantagem material"
             }
 
         ]

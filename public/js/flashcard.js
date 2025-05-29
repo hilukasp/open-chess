@@ -199,7 +199,7 @@ function configuracao() {
   game = new Chess(`${posicoes[numeroaleatorio].posicao}`)
 
   console.log(posicoes[numeroaleatorio].posicao)
-  descricao.innerHTML = `<h3>Abertura: ${posicoes[numeroaleatorio].nome_categoria}</h3>`
+  descricao.innerHTML = `<h2>Faça o movimento correto</h2><br><h3>Abertura: ${posicoes[numeroaleatorio].nome_categoria}</h3>`
 
   var config = {
     draggable: true,
