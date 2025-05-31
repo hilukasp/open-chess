@@ -86,20 +86,47 @@ margin: 5px 50px 50px 50px;
 #box-kpi {
     position: fixed;
     top:25%;
-    right: 0px;
-    width: 10%;
-    height: 150px;
-    background-color: aliceblue;  
-  animation-name: run;
-  animation-duration: 5s;
-  animation-direction: normal;
-}
-@keyframes run {
-  0% {
-  
-  } 
-  100% {
+    right: -75%;
     width: 80%;
-    animation-play-state: paused
-  }
+    height: 100px;
+    background-color: aliceblue;   
+      -webkit-transition-duration: 0.3s;
+  -moz-transition-duration: 0.3s;
+  -o-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  display: flex;
+  flex-flow: row;
+    border-radius: 100px 0px 0px 100px;
+    align-items: center;
+    justify-content: center;
 } 
+
+#box-kpi.on{ 
+    right: 0px; 
+}
+
+#box-kpi>div{
+    display: flex;
+    color: black;
+    width: 40%;
+    height: 80%;
+    /* background-color: aquamarine; */
+    margin-left: 40px; 
+    margin-right: 20px;
+    align-items: center; 
+    flex-direction: column;   
+    justify-content: center; 
+    border-style: double;
+    border-color: black;
+}
+#box-kpi>.painelzinho{
+    width:110px;
+    border-radius: 100px 0px 0px 100px;
+    background-color: aliceblue;
+    color: black;
+    font-size: 20pt; 
+    height: 100%;
+} 
+.kpi>h2{ 
+    margin-bottom: 10px;
+}

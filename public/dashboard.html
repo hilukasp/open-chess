@@ -47,7 +47,10 @@
         </div>
     </main>
     <div id="box-kpi">
-
+        <button onclick="painel()" class="painelzinho" id="seta"><</button>
+        <div class="kpi1 kpi" ><h2>Sequência Atual </h2><h3 id="resultado1"></h3></div>
+        <div class="kpi2 kpi"><h2>Maior Sequência</h2><h3 id="resultado2"></h3></div>
+        <div class="kpi3 kpi"><h2>Porcentagem de acerto</h2><h3 id="resultado3"></h3></div>
     </div>
 
     <footer>
@@ -57,6 +60,16 @@
 
 
     <script>
+        function painel() {
+            const panel = document.getElementById('box-kpi');
+            panel.classList.toggle('on'); 
+             if (panel.classList.contains('on')) {
+            seta.innerHTML = '>';  
+            } else {
+            seta.innerHTML = '<';  
+            }
+        }
+        
         function grafico() {
             Chart.defaults.color = '#fff';
             // Chart.defaults.backgroundColor = '#FFF';
@@ -126,23 +139,27 @@
                 alert('usuário não existe, faça o login primeiro')
                 window.location.href = "login.html";
             }
-            fetch(`/medidas/ultimas/${idUsuario}`).then(function (response) {
 
-                if (response.ok) {
-                    response.json().then(function (resposta) {
-                        console.log(resposta)
+            fetch(`/medidas/ultimas/${idUsuario}`).then(function (response) { 
+                 
+                if (response.ok) { 
 
+                    response.json().then(function (resposta) { 
+                        
                         for (i = 0; i < resposta.length; i++) { 
+                            
+                            kpijs(resposta[i].correto)
+
                             if (resposta[i].correto == 1) {
                                 correto++
                             } else {
-                                errado++
+                                errado++ 
                             }
                         }
- 
+                        resultado3.innerHTML=`${(correto/(correto+errado)*100).toFixed(2)}%`
                     });
                 } else {
-                    console.error('Nenhum dado encontrado ou erro na API');
+                    console.error('Nenhum dado encontrado ou erro na API'); 
                 }
 
 
@@ -155,7 +172,7 @@
             fetch(`/medidas/categoria/${idUsuario}`).then(function (response) {
 
                 if (response.ok) {
-                    response.json().then(function (resposta) { 
+                    response.json().then(function (resposta) {  
 
                         for (i = 0; i < resposta.length; i++) { 
                             vetordata.push(resposta[i].correto)
@@ -174,6 +191,37 @@
                 .catch(function (error) {
                     console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
                 });
+        }
+        
+        
+        var streak=0
+        var maiorstreak=0
+        var contador=1
+        var perdeu=false
+        function kpijs(correto) {
+            //kpi1
+            if (correto==1&&!perdeu){
+                streak++
+            }else{
+                resultado1.innerHTML=`${streak}`
+                perdeu=true
+            }
+
+            //kpi2
+            
+            if (correto==1){
+                contador++
+                console.log(contador)
+                
+            }else{
+                contador=0  
+            }
+
+            if (maiorstreak<=contador) {
+                    maiorstreak=contador
+                    resultado2.innerHTML=`${maiorstreak}`
+            }
+            
         }
     </script>
 </body>

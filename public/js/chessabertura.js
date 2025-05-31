@@ -8,9 +8,9 @@ var carokann='rnbqkbnr/pp2pppp/2p5/3p4/3PP3/8/PPP2PPP/RNBQKBNR'
 
 var aberturas = [
     { nome: 'Italiana', posicao: italiana,orientation:'white',link:'italiana.html' },
-    { nome: 'Francesa', posicao: francesa,orientation:'black',link:'' },
-    { nome: 'Ruy Lopez', posicao: ruyLopez,orientation:'white',link:'' },
-    { nome: 'Caro-Kann', posicao: carokann,orientation:'black',link:'' },
+    { nome: 'Francesa', posicao: francesa,orientation:'black',link:'italiana.html' },
+    { nome: 'Ruy Lopez', posicao: ruyLopez,orientation:'white',link:'italiana.html' },
+    { nome: 'Caro-Kann', posicao: carokann,orientation:'black',link:'italiana.html' },
     // { nome: 'Normal', posicao: normal,orientation:'black'}
 ];
 // var config = {

@@ -4,7 +4,7 @@ function buscarUltimasMedidas(idUsuario) {
 
     var instrucaoSql = `select jogador.* , historico.* from user jogador 
     inner join posicao_flashcard historico on jogador.id=historico.id_user 
-    where jogador.id=${idUsuario}`;
+    where jogador.id=${idUsuario} order by revisao desc`;
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);

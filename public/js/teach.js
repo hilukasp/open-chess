@@ -279,10 +279,16 @@ function validate(enemyMoveIndex) {
           <button onclick="varianteEnemy(chessmove=17)">Qualquer outro movimento</button> 
           `
     }
-    if (enemyMoveIndex === 8 && (variante == 2 || variante == 6)) {
+    if (enemyMoveIndex === 8 &&  variante == 6) {
         variantes.innerHTML = `<h2> Lances do inimigo: </h2>
           <button onclick="varianteEnemy(chessmove=12)">Bxf3</button>
           <button onclick="varianteEnemy(chessmove=13)">Bh5</button> 
+          `
+    }
+    if (enemyMoveIndex === 8 && variante == 2 ) {
+        variantes.innerHTML = `<h2> Lances do inimigo: </h2>
+          <button onclick="varianteEnemy(chessmove=12)">Bxf3</button>
+          <button onclick="varianteEnemy(chessmove=18)">Bh5</button> 
           `
     }
     if (enemyMoveIndex === 8 && variante == 4) {
@@ -319,7 +325,7 @@ function varianteEnemy(chessMove) {
             piece: "b",
             san: "c5",
             to: "c5",
-            "mensagem": "O oponente defende o peão de e5 com o cavalo<br><br>Jogue c3 para preparar o avanço do d4 em algum momento"
+            "mensagem": "O oponente desenvolve o bispo possivelmente preparando para um futuro roque<br><br>Jogue c3 para preparar o avanço do d4 em algum momento"
         }
 
         vetorEnemy.push(vetortemporario)
@@ -388,7 +394,7 @@ function varianteEnemy(chessMove) {
             "flags": "n",
             "piece": "p",
             "san": "d6",
-    "mensagem": "d5 impede que o oponente consiga voltar com o bispo para um lugar mais seguro<br><br> não deixe a oportunidade passar e ataque o bispo para manter a pressão"
+    "mensagem": "d6 impede que o oponente consiga voltar com o bispo para um lugar mais seguro<br><br> não deixe a oportunidade passar e ataque o bispo para manter a pressão"
         }
         vetorEnemy.push(vetortemporario)
         makeEnemyMove()
@@ -440,7 +446,7 @@ function varianteEnemy(chessMove) {
                 "flags": "n",
                 "piece": "b",
                 "san": "Bg4",
-                "mensagem":"O bispo cravou o seu cavalo, ou seja, você não pode movimentar ele se não perde a rainha<br><br>Nesse momento é necessário tirar esse bispo dessa casa ameaçadora para evitar ataques mais fortes"
+                "mensagem":"O bispo cravou o seu cavalo, ou seja, você não pode movimentar ele se não perde a dama<br><br>Nesse momento é necessário tirar esse bispo dessa casa ameaçadora para evitar ataques mais fortes"
             },
             {
                 "color": "b",
@@ -495,7 +501,7 @@ function varianteEnemy(chessMove) {
             "piece": "p",
             "captured": "p",
             "san": "dxe5",
-            "mensagem":"o peão do oponente capturou seu peão de volta para não perder material, mas liberou caminho para a rainha ser atacada<br><br>capture a rainha"
+            "mensagem":"o peão do oponente capturou seu peão de volta para não perder material, mas liberou caminho para a dama ser atacada<br><br>capture a dama"
         },
         {
             "color": "b",
@@ -532,7 +538,8 @@ function varianteEnemy(chessMove) {
             "flags": "c",
             "piece": "p",
             "captured": "p",
-            "san": "exd4"
+            "san": "exd4",
+            "mensagem":"Capture o peão de volta<br><br>"
         },
         {
             "color": "b",
@@ -540,7 +547,8 @@ function varianteEnemy(chessMove) {
             "to": "b4",
             "flags": "n",
             "piece": "b",
-            "san": "Bb4+"
+            "san": "Bb4+",
+            "mensagem":"Bispo deu check no seu rei<br><br>Coloque o cavalo na frente como proteção"
         },
         {
             "color": "b",
@@ -549,7 +557,8 @@ function varianteEnemy(chessMove) {
             "flags": "c",
             "piece": "b",
             "captured": "n",
-            "san": "Bxc3+"
+            "san": "Bxc3+",
+            "mensagem":"Recupere o material tomando o bispo de volta<br><br>"
         },
         {
             "color": "b",
@@ -557,7 +566,8 @@ function varianteEnemy(chessMove) {
             "to": "f6",
             "flags": "n",
             "piece": "n",
-            "san": "Nf6"
+            "san": "Nf6",
+            "mensagem":"O cavalo ameaça o peão desprotegido de e4<br><br>Não tem necessidade de proteger, utilize o peão como isca <br><br>Faça o roque para colocar o seu rei em um lugar seguro"
         },
         {
             "color": "b",
@@ -566,7 +576,8 @@ function varianteEnemy(chessMove) {
             "flags": "c",
             "piece": "n",
             "captured": "p",
-            "san": "Nxe4"
+            "san": "Nxe4",
+            "mensagem":"O oponente tomou seu peão desprotegido<br><br>Jogue torre e1 para cravar o cavalo do oponente<br><br>O cavalo não consegue se mover porque o rei ficará em perigo"
         },
         {
             "color": "b",
@@ -574,7 +585,8 @@ function varianteEnemy(chessMove) {
             "to": "d5",
             "flags": "n",
             "piece": "p",
-            "san": "d5"
+            "san": "d5",
+            "mensagem":"Ele decidiu defender o cavalo<br><br>Jogue bispo a3 para evitar que o oponente faça o roque pequeno"
         },
         {
             "color": "b",
@@ -583,7 +595,8 @@ function varianteEnemy(chessMove) {
             "flags": "c",
             "piece": "p",
             "captured": "b",
-            "san": "dxc4"
+            "san": "dxc4",
+            "mensagem":"O peão tomou seu bispo<br><br>Você consegue tomar o cavalo dele e ainda ameaçar o check"
         },
         {
             "color": "b",
@@ -591,7 +604,8 @@ function varianteEnemy(chessMove) {
             "to": "e6",
             "flags": "n",
             "piece": "b",
-            "san": "Be6"
+            "san": "Be6",
+            "mensagem":"Único lance forçado que ele pode fazer é colocando o bispo para defender o rei<br><br>d5 faz com que você consiga ameaçar 2 peças do oponente ao mesmo tempo<br><br> Independetemente do lance que ele fará, você tem vantagem material e pode escolher tomar o bispo ou o cavalo dependendo do que o oponente jogar"
         }
         ]
 
@@ -636,7 +650,7 @@ function varianteEnemy(chessMove) {
             "flags": "n",
             "piece": "b",
             "san": "Bg4",
-            "mensagem":"O bispo removido enfraquece a casa de b7<br><br>Jogue a rainha para ameaçar as duas casas simultaneamente, tanto a de f7 e b7"
+            "mensagem":"O bispo removido enfraquece a casa de b7<br><br>Jogue a dama para ameaçar as duas casas simultaneamente, tanto a de f7 e b7"
         }
 
         vetorEnemy.push(vetortemporario)
@@ -696,7 +710,8 @@ function varianteEnemy(chessMove) {
                 "to": "d7",
                 "flags": "n",
                 "piece": "q",
-                "san": "Qd7"
+                "san": "Qd7",
+            "mensagem":"Oponente defendeu a casa de f7 com a dama, porém deixou b7 enfraquecido<br><br>Tome a casa de b7"
             },
             {
                 "color": "b",
@@ -704,7 +719,8 @@ function varianteEnemy(chessMove) {
                 "to": "b8",
                 "flags": "n",
                 "piece": "r",
-                "san": "Rb8"
+                "san": "Rb8",
+            "mensagem":"A torre ameaça a sua dama<br><br>Coloque ela em um lugar seguro"
             },
             {
                 "color": "b",
@@ -713,7 +729,8 @@ function varianteEnemy(chessMove) {
                 "flags": "c",
                 "piece": "b",
                 "captured": "n",
-                "san": "Bxf3"
+                "san": "Bxf3",
+            "mensagem":"O bispo capturou seu cavalo<br><br>recapture de peão<br><br>Nessa posição, você tem uma considerável vantagem. Seu oponente perdeu um peão, e sua estrutura de peões está melhor do que a dele"
             }
         ]
         vetortemporario.forEach(mov => vetorEnemy.push(mov))
@@ -751,7 +768,7 @@ function varianteEnemy(chessMove) {
                 "flags": "n",
                 "piece": "b",
                 "san": "Bg4",  
-                "mensagem":"O bispo cravou o seu cavalo, ou seja, você não pode movimentar ele se não perde a rainha<br><br>Nesse momento é necessário tirar esse bispo dessa casa ameaçadora para evitar ataques mais fortes"
+                "mensagem":"O bispo cravou o seu cavalo, ou seja, você não pode movimentar ele se não perde a dama<br><br>Nesse momento é necessário tirar esse bispo dessa casa ameaçadora para evitar ataques mais fortes"
             
             },
             {
@@ -761,7 +778,7 @@ function varianteEnemy(chessMove) {
                 "flags": "n",
                 "piece": "b",
                 "san": "Be7",
-            "mensagem":"Faça roque para defender melhor o seu rei<br><br>"
+            "mensagem":"Faça o roque para defender melhor o seu rei<br><br>"
             },
             {
                 "color": "b",
@@ -829,7 +846,7 @@ function varianteEnemy(chessMove) {
                 "flags": "n",
                 "piece": "q",
                 "san": "Qd7",
-                "mensagem":"Está na hora de abrir o centro visto que todas as peças estçao protegidas<br><br>"
+                "mensagem":"Está na hora de abrir o centro visto que todas as peças estão protegidas<br><br>"
             },
             {
                 "color": "b",
@@ -970,7 +987,8 @@ function varianteEnemy(chessMove) {
                 "to": "c5",
                 "flags": "n",
                 "piece": "b",
-                "san": "Bc5"
+                "san": "Bc5",
+                "mensage":"Desenvolveu o bispo e abriu a ala para que o rei consiga fazer roque<br><br>Joque c3 para desenvolver o plano da italiana"
             },
             {
                 "color": "b",
@@ -978,7 +996,8 @@ function varianteEnemy(chessMove) {
                 "to": "g8",
                 "flags": "k",
                 "piece": "k",
-                "san": "O-O"
+                "san": "O-O",
+                "mensage":"O oponente colocou o rei dele em proteção<br><br>Proteja o seu rei também"
             },
             {
                 "color": "b",
@@ -986,7 +1005,8 @@ function varianteEnemy(chessMove) {
                 "to": "d6",
                 "flags": "n",
                 "piece": "p",
-                "san": "d6"
+                "san": "d6",
+            "mensagem":"Ative a sua torre colocando ela no meio"
             },
             {
                 "color": "b",
@@ -994,7 +1014,8 @@ function varianteEnemy(chessMove) {
                 "to": "g4",
                 "flags": "n",
                 "piece": "b",
-                "san": "Bg4"
+                "san": "Bg4",
+                "mensagem":"O bispo cravou o seu cavalo, ou seja, você não pode movimentar ele se não perde a dama<br><br>Nesse momento é necessário tirar esse bispo dessa casa ameaçadora para evitar ataques mais fortes"
             },
             {
                 "color": "b",
@@ -1002,7 +1023,8 @@ function varianteEnemy(chessMove) {
                 "to": "h6",
                 "flags": "n",
                 "piece": "p",
-                "san": "h6"
+                "san": "h6",
+                "mensagem":"Ele fez um lance passivo<br><br>É hora de tirar esse bispo dessa casa"
             },
         ]
         vetortemporario.forEach(mov => vetorEnemy.push(mov))
@@ -1101,7 +1123,8 @@ function varianteEnemy(chessMove) {
                 "to": "a6",
                 "flags": "n",
                 "piece": "p",
-                "san": "a6"
+                "san": "a6",
+                "mensage":"O lance abriu margem para que o peão de f7 fique sem proteção nenhuma<br><br>Tome de cavalo e assim ameaçará tanto a dama quanto a torre"
             },
             {
                 "color": "b",
@@ -1109,7 +1132,8 @@ function varianteEnemy(chessMove) {
                 "to": "d7",
                 "flags": "n",
                 "piece": "q",
-                "san": "Qd7"
+                "san": "Qd7",
+                "mensage":"Ele decidiu fugir com a rainha<br><br>Tome a torre garantindo uma grande vantagem material"
             }
 
         ]
@@ -1127,6 +1151,69 @@ function varianteEnemy(chessMove) {
         vetortemporario.forEach(shadow => vetorShadow.push(shadow))
         greySquare()
     }
+    if (chessMove == 18) {
+        variantes.innerHTML = ``
+        variante = 0
+        vetortemporario = [
+          {
+                "color": "b",
+                "from": "g4",
+                "to": "h5",
+                "flags": "c",
+                "piece": "b",
+                "captured": "n",
+                "san": "Bh5",
+                "mensagem":"Ele recuou com o bispo, mas ainda sim ele está cravando o cavalo. Precisamos atacar a casa de h5<br><br>Vamos manobrar o cavalo para que ele alcance a casa de g3 e assim expulsar o bispo da cravada"
+            },
+            {
+                "color": "b",
+                "from": "d8",
+                "to": "d7",
+                "flags": "n",
+                "piece": "q",
+                "san": "Qd7",
+                "mensagem":"Coloque o cavalo para ameaçar o bispo do oponente<br><br>"
+            },
+          {
+            "color": "b",
+            "from": "h5",
+            "to": "g6",
+            "flags": "n",
+            "piece": "b",
+            "san": "Bg6",
+            "mensagem":"O bispo recuou<br><br>Podemos seguir o plano da italiana de avançar o centro de peões"
+          },
+          {
+            "color": "b",
+            "from": "e5",
+            "to": "d4",
+            "flags": "c",
+            "piece": "p",
+            "captured": "p",
+            "san": "exd4",
+            "mensagem":"Tome o peão capturado<br><br>Nessa posição você já consegue ter a autonomia de realizar lances mais agressivos, visto que o centro está aberto, peças desenvolvidas e rei protegido"
+          }
+        ]
+        vetortemporario.forEach(mov => vetorEnemy.push(mov))
+        makeEnemyMove()
+
+        vetortemporario = [
+          {
+            from: "d2", to: "f1"
+          },
+          {
+            from: "f1", to: "g3"
+          },
+          {
+            from: "d3", to: "d4"
+          },
+          {
+            from: "c3", to: "d4"
+          },
+        ]
+        vetortemporario.forEach(shadow => vetorShadow.push(shadow))
+        greySquare()
+      }
 }
 
 // function refazer() {
