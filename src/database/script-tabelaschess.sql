@@ -30,7 +30,8 @@ orientacao varchar(50)
  
 insert into user (username, email, senha) values
 ('mateus', 'a@', 'a'),
-('ana', 'b@', 'a');
+('ana', 'b@', 'a'),
+('user', 'user', 'user');
  
  select * from user;
 insert into posicao_flashcard (correto, id_user, id_posicao) values
@@ -47,7 +48,7 @@ select jogador.* , historico.* from user jogador inner join posicao_flashcard hi
 inner join posicao_flashcard historico 
 on jogador.id=historico.id_user
 inner join posicao_chess abertura 
-on abertura.id=historico.id_posicao where jogador.id=3;
+on abertura.id=historico.id_posicao where jogador.id=3 order by revisao desc;
 
 select 
 
@@ -65,3 +66,13 @@ insert into posicao_chess (posicao, nome_categoria, resposta, orientacao) values
 ('r1b1kbnr/pp3ppp/1qn1p3/2ppP3/3P4/2PB1N2/PP3PPP/RNBQK2R b KQkq - 4 6', 'Francesa', 'Bd7', 'black'),
 ('r1bqkbnr/pp3ppp/2n1p3/1BppP3/3P4/5N2/PPP2PPP/RNBQK2R b KQkq - 3 5', 'Francesa', 'Qb6', 'black'),
 ('r1bqkb1r/pppp1ppp/2n2n2/4p3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 4 4', 'Italiana', 'd3', 'white');
+
+insert into posicao_flashcard (correto, id_user, id_posicao) values 
+(1, 3, 2),
+(1, 3, 4),
+(1, 3, 5),
+(1, 3, 1),
+(0, 3, 2),
+(1, 3, 2),
+(0, 3, 3),
+(0, 3, 2)	;
