@@ -112,10 +112,10 @@ main{
     align-items: center;
 }
 .mensagem{
- display: flex;
- align-items: center;
- justify-content: center;
- flex-direction: column;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
 }
 .mensagem>a{
     margin-top: 20px;

@@ -7,10 +7,10 @@
     height: 100%;
 }
 .desc>.box{ 
-display: flex;
-flex-flow: column nowrap; 
-height: 100%;
-width: 100%; 
+    display: flex;
+    flex-flow: column nowrap; 
+    height: 100%;
+    width: 100%; 
     position: relative;
 }
 .box>div{
@@ -69,10 +69,10 @@ canvas{
     top: 100px;
 }
 .dash{ 
-display: flex;
-align-items: center;
-flex-direction: column;
-margin: 5px 50px 50px 50px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin: 5px 50px 50px 50px;
 }
 /* #box-kpi{
     position: fixed;
@@ -90,12 +90,12 @@ margin: 5px 50px 50px 50px;
     width: 80%;
     height: 100px;
     background-color: aliceblue;   
-      -webkit-transition-duration: 0.3s;
-  -moz-transition-duration: 0.3s;
-  -o-transition-duration: 0.3s;
-  transition-duration: 0.3s;
-  display: flex;
-  flex-flow: row;
+    -webkit-transition-duration: 0.3s;
+    -moz-transition-duration: 0.3s;
+    -o-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    display: flex;
+    flex-flow: row;
     border-radius: 100px 0px 0px 100px;
     align-items: center;
     justify-content: center;
