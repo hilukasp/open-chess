@@ -24,6 +24,10 @@ function buscarMedidasEmTempoReal(idUsuario) {
     return database.executar(instrucaoSql);
 }
 
+//     select posicao_flashcard.* ,posicao_chess.nome_categoria from user 
+// join posicao_flashcard on user.id=posicao_flashcard.id_user
+// join posicao_chess on posicao_flashcard.id_posicao=posicao_chess.id where user.id=${idUsuario}
+
 module.exports = {
     buscarUltimasMedidas,
     buscarMedidasEmTempoReal

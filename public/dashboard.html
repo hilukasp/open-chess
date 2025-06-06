@@ -180,7 +180,12 @@
                         } 
                         console.log( vetorlabel)
 
-                        grafico()
+                        
+                        setTimeout(function () {
+                        grafico();
+                        
+                    }, 50);
+
                     });
                 } else {
                     console.error('Nenhum dado encontrado ou erro na API');
